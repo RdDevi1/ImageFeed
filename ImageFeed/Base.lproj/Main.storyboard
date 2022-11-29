@@ -31,10 +31,10 @@
                                                     <rect key="frame" x="20" y="11" width="374" height="199"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="16"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 сентября 2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI1-wp-bMD" userLabel="Date label">
@@ -44,7 +44,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tdk-cq-fxQ" userLabel="Like button">
-                                                    <rect key="frame" x="365" y="11" width="29" height="26"/>
+                                                    <rect key="frame" x="352" y="11" width="42" height="42"/>
                                                     <color key="tintColor" red="0.82599914969999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="Like_on"/>
@@ -72,10 +72,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kJZ-pC-231"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1Vg-2i-Qm8"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -87,6 +83,9 @@
                             <constraint firstAttribute="trailing" secondItem="SlS-Ke-clB" secondAttribute="trailing" id="bN4-bG-aSz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="SlS-Ke-clB" id="wcK-aW-elL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -95,6 +94,6 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Like_on" width="29" height="26"/>
+        <image name="Like_on" width="42" height="42"/>
     </resources>
 </document>

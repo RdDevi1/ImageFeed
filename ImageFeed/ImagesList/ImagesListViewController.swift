@@ -2,11 +2,14 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
     private var photosName = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         photosName = Array(0..<20).map{ "\($0)" }
     }
