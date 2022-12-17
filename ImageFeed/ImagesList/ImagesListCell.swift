@@ -9,8 +9,4 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
-    func formingImage() {
-    cellImage.layer.masksToBounds = true
-    cellImage.layer.cornerRadius = 16
-    }
 }
