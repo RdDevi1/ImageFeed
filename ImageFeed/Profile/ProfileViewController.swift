@@ -13,6 +13,7 @@ final class ProfileViewController: UIViewController {
         let profileNameLabel = UILabel()
         profileNameLabel.text = "Екатерина Новикова"
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        profileNameLabel.textColor = .white
         createViewOnVC(newView: profileNameLabel)
         
         let loginLabel = UILabel()
@@ -24,6 +25,7 @@ final class ProfileViewController: UIViewController {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "Hallo, world!"
         descriptionLabel.font = UIFont(name: "System", size: 13)
+        descriptionLabel.textColor = .white
         createViewOnVC(newView: descriptionLabel)
 
         
@@ -33,21 +35,28 @@ final class ProfileViewController: UIViewController {
                                                  action: nil)
         createViewOnVC(newView: logoutButton)
         
+        let vStackViewWithLabels = UIStackView()
+        vStackViewWithLabels.distribution = .equalSpacing
+        vStackViewWithLabels.spacing = 8
+        vStackViewWithLabels.axis = .vertical
+        vStackViewWithLabels.addArrangedSubview(profileNameLabel)
+        vStackViewWithLabels.addArrangedSubview(loginLabel)
+        vStackViewWithLabels.addArrangedSubview(descriptionLabel)
+        createViewOnVC(newView: vStackViewWithLabels)
+        
+        
         NSLayoutConstraint.activate([
             profileImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 76),
             profileImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             profileImage.widthAnchor.constraint(equalToConstant: 70),
             profileImage.heightAnchor.constraint(equalToConstant: 70),
             
-            profileNameLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8),
-            profileNameLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
+            vStackViewWithLabels.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8),
+            vStackViewWithLabels.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            loginLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 8),
-            loginLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
-            
+            profileNameLabel.topAnchor.constraint(equalTo: vStackViewWithLabels.topAnchor),
+            profileNameLabel.leadingAnchor.constraint(equalTo: vStackViewWithLabels.leadingAnchor),
+
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
