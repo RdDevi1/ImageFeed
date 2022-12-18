@@ -6,8 +6,7 @@ final class ProfileViewController: UIViewController {
      
         view.backgroundColor = .ypBlack
         
-        let avatar = UIImage(named: "avatar")!
-        let profileImage = UIImageView(image: avatar)
+        let profileImage = UIImageView(image: UIImage(named: "avatar")!)
         createViewOnVC(newView: profileImage)
         
         let profileNameLabel = UILabel()
@@ -23,7 +22,7 @@ final class ProfileViewController: UIViewController {
         createViewOnVC(newView: loginLabel)
         
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "Hallo, world!"
+        descriptionLabel.text = "Hello, world!"
         descriptionLabel.font = UIFont(name: "System", size: 13)
         descriptionLabel.textColor = .white
         createViewOnVC(newView: descriptionLabel)
