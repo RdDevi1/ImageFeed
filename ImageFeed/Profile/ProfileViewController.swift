@@ -1,11 +1,9 @@
-
-import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
-      //  super.viewDidLoad
+     
         view.backgroundColor = .ypBlack
         
         let avatar = UIImage(named: "Avatar")!
@@ -52,9 +50,7 @@ class ProfileViewController: UIViewController {
             
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
-            
         ])
-        
         
     }
     
