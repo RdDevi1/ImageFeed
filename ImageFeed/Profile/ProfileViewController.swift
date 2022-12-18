@@ -6,7 +6,7 @@ final class ProfileViewController: UIViewController {
      
         view.backgroundColor = .ypBlack
         
-        let avatar = UIImage(named: "Avatar")!
+        let avatar = UIImage(named: "avatar")!
         let profileImage = UIImageView(image: avatar)
         createViewOnVC(newView: profileImage)
         
@@ -28,9 +28,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.textColor = .white
         createViewOnVC(newView: descriptionLabel)
 
-        
-        let logoutImage = UIImage(named: "logoutButton")!
-        let logoutButton = UIButton.systemButton(with: logoutImage,
+        let logoutButton = UIButton.systemButton(with: UIImage(named: "logout_button")!,
                                                  target: self,
                                                  action: nil)
         createViewOnVC(newView: logoutButton)
