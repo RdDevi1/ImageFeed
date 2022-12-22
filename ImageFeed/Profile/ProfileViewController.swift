@@ -3,7 +3,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
-     
+        
         view.backgroundColor = .ypBlack
         
         let profileImage = UIImageView(image: UIImage(named: "avatar")!)
@@ -26,7 +26,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.font = UIFont(name: "System", size: 13)
         descriptionLabel.textColor = .white
         createViewOnVC(newView: descriptionLabel)
-
+        
         let logoutButton = UIButton.systemButton(with: UIImage(named: "logout_button")!,
                                                  target: self,
                                                  action: nil)
@@ -53,7 +53,7 @@ final class ProfileViewController: UIViewController {
             
             profileNameLabel.topAnchor.constraint(equalTo: vStackViewWithLabels.topAnchor),
             profileNameLabel.leadingAnchor.constraint(equalTo: vStackViewWithLabels.leadingAnchor),
-
+            
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
