@@ -92,6 +92,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		C47C3D2C29676C5600AD6EA3 /* SplashViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
+			);
+			path = SplashViewController;
+			sourceTree = "<group>";
+		};
 		C489A53C295DCE31005A6D02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,13 +139,13 @@
 				C49F41212926637400CC2B85 /* AppDelegate.swift */,
 				C49F41232926637400CC2B85 /* SceneDelegate.swift */,
 				C457AB61295099770071E8D5 /* Constants.swift */,
-				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
 				C489A53C295DCE31005A6D02 /* Models */,
 				C489A53F295DD33B005A6D02 /* Services */,
 				C457AB652952EC4B0071E8D5 /* Auth */,
 				C42CA353293A1FCD00F65453 /* Profile */,
 				C4BBE5402930E7FB00777BC5 /* ImagesList */,
 				C42CB2DF293F6BC7006CFF06 /* SingleImageView */,
+				C47C3D2C29676C5600AD6EA3 /* SplashViewController */,
 				C4245226293E806B00CD9A77 /* Helpers */,
 				C49F41272926637500CC2B85 /* Main.storyboard */,
 				C49F412A2926637600CC2B85 /* Assets.xcassets */,

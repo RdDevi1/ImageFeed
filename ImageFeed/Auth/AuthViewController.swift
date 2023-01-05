@@ -43,7 +43,7 @@ extension AuthViewController: WebViewViewControllerDelegate {
             switch result {
             case .success(let token):
                 self.oAuth2TokenStorage.bearerToken = token
-                print("token is here: \(self.oAuth2TokenStorage.bearerToken ?? "nil")")
+                self.delegate?.authViewController(self, didAuthenticateWithCode: token)
 
             case .failure(let error):
                 print(error)

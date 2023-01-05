@@ -1,7 +1,7 @@
 
 import UIKit
 
-final class SplashViewController: UIViewController, AuthViewControllerDelegate {
+final class SplashViewController: UIViewController {
     
     private enum Constants {
         static let showAuthenticationScreenSegueIdentifier = "ShowAuthentication"
@@ -15,7 +15,7 @@ final class SplashViewController: UIViewController, AuthViewControllerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let _ = OAuth2TokenStorage().bearerToken {
+        if let _ = oAuth2TokenStorage.bearerToken {
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: Constants.showAuthenticationScreenSegueIdentifier, sender: nil)
@@ -53,7 +53,7 @@ extension SplashViewController {
 
 // MARK: - AuthViewControllerDelegate
 
-extension SplashViewController {
+extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         switchToTabBarController()
     }
