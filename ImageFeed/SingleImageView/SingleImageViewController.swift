@@ -10,8 +10,13 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
+   //MARK: - IBOutlets
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+   
+    //MARK: -
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +26,7 @@ final class SingleImageViewController: UIViewController {
         rescaleAndCenterImageInScrollView(image: image)
     }
     
+    //MARK: - IBActions
     
     @IBAction func didTapBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)

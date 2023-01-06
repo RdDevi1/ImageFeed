@@ -4,13 +4,12 @@ final class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    private var photosName = [String]()
     
+    private var photosName = [String]()
     private enum Constants {
         static let showSingleImageSegueIdentifier = "ShowSingleImage"
     }
      
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +37,9 @@ final class ImagesListViewController: UIViewController {
         return formatter
     }()
 }
+
+//MARK: - Extensions
+
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
