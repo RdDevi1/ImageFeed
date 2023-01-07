@@ -40,7 +40,9 @@ final class OAuth2Service: OAuth2ServiceDelegate {
                     completion(.success(jsonResponce.accessToken))
                 }
             } catch {
-                completion(.failure(OAuth2Error.decodeError))
+                DispatchQueue.main.async {
+                    completion(.failure(OAuth2Error.decodeError))
+                }
             }
         }
         task.resume()

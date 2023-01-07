@@ -14,8 +14,8 @@ final class AuthViewController: UIViewController {
     private let oAuth2Service = OAuth2Service()
     private var oAuth2TokenStorage = OAuth2TokenStorage()
     
-    @IBOutlet weak var authLogoImage: UIImageView!
-    @IBOutlet weak var logInButton: UIButton!
+    @IBOutlet private weak var authLogoImage: UIImageView!
+    @IBOutlet private weak var logInButton: UIButton!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier ==  Constants.showWebViewSegueIdentifier {

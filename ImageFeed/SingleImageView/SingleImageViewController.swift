@@ -12,7 +12,7 @@ final class SingleImageViewController: UIViewController {
     
    //MARK: - IBOutlets
     
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
    
@@ -28,7 +28,7 @@ final class SingleImageViewController: UIViewController {
     
     //MARK: - IBActions
     
-    @IBAction func didTapBackButton(_ sender: Any) {
+    @IBAction private func didTapBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
