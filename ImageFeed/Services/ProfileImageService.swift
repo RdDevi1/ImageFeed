@@ -11,7 +11,9 @@ final class ProfileImageService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var oAuth2TokenStorage = OAuth2TokenStorage()
-    private(set) var avatarUrl: String?
+    private(set) var avatarURL: String?
+    
+    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     
     //MARK: - Singleton
     static let shared = ProfileImageService()
@@ -43,10 +45,15 @@ final class ProfileImageService {
                 
                 do {
                     let jsonData = try JSONDecoder().decode(UserResult.self, from: data)
-                    let avatarURL = jsonData.profileImage.small
-                    self.avatarUrl = avatarURL
-                    completion(.success(avatarURL))
+                    let profileImageURL = jsonData.profileImage.small
+                    self.avatarURL = profileImageURL
+                    completion(.success(profileImageURL))
                     print("GOOD ----------------------------------------> avatarURL is here")
+                    NotificationCenter.default.post(
+                        name: ProfileImageService.DidChangeNotification,
+                        object: self,
+                        userInfo: ["URL": profileImageURL]
+                    )
                 } catch {
                     completion(.failure(ProfileImageError.decodeError))
                     print("ERROR ----------------------------------------> avatarURL decodeError")

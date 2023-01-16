@@ -13,6 +13,7 @@ final class SplashViewController: UIViewController {
     private let oAuth2Service = OAuth2Service()
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     
     
     //MARK: - LifeCicle
@@ -86,8 +87,9 @@ extension SplashViewController {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
+            case .success(let profile):
                 DispatchQueue.main.async {
+                    self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
                     self.switchToTabBarController()
                 }
             case .failure(let error):

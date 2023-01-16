@@ -6,9 +6,9 @@ final class ProfileViewController: UIViewController {
     
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private var profileImageServiceObserver: NSObjectProtocol?
     
-    
-    private var profileImage = UIImageView(image: UIImage(named: "Avatar")!)
+    private var avatarImageView = UIImageView(image: UIImage(named: "Avatar")!)
     private var profileNameLabel = UILabel()
     private var loginLabel = UILabel()
     private var descriptionLabel = UILabel()
@@ -26,12 +26,29 @@ final class ProfileViewController: UIViewController {
         
         updateProfileDetails(profile: profileService.profile)
         
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
     }
 
     
     // MARK: - Private methods
+    private func updateAvatar() {                                   // 8
+            guard
+                let profileImageURL = ProfileImageService.shared.avatarURL,
+                let url = URL(string: profileImageURL)
+            else { return }
+            // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        }
+    
     private func createProfileImage() {
-        createViewOnVC(newView: profileImage)
+        createViewOnVC(newView: avatarImageView)
     }
     
     private func createProfileNameLabel() {
@@ -71,12 +88,12 @@ final class ProfileViewController: UIViewController {
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
-            profileImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 76),
-            profileImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            profileImage.widthAnchor.constraint(equalToConstant: 70),
-            profileImage.heightAnchor.constraint(equalToConstant: 70),
+            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 76),
+            avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 70),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
             
-            vStackView.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8),
+            vStackView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
             vStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             profileNameLabel.topAnchor.constraint(equalTo: vStackView.topAnchor),
