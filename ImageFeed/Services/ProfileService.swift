@@ -6,7 +6,8 @@ private enum ProfileError: Error {
 
 
 final class ProfileService {
-    
+  
+    // MARK: - Properties
     fileprivate let profileInfoURLString = "https://api.unsplash.com/me"
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
@@ -21,6 +22,7 @@ final class ProfileService {
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         
         assert(Thread.isMainThread)
+        
         if lastToken == token { return }
         task?.cancel()
         lastToken = token
@@ -36,7 +38,6 @@ final class ProfileService {
                 if let response = response as? HTTPURLResponse,
                    response.statusCode < 200 || response.statusCode > 299 {
                     completion(.failure(ProfileError.codeError))
-                    
                 }
                 
                 guard let data = data else { return }

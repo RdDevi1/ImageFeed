@@ -10,14 +10,12 @@ final class SplashViewController: UIViewController {
     }
     
     //MARK: - Properties
-    
     private let oAuth2Service = OAuth2Service()
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
     
     
     //MARK: - LifeCicle
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

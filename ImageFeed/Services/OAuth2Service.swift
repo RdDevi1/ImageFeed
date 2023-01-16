@@ -10,6 +10,7 @@ private enum OAuth2Error: Error {
 
 final class OAuth2Service: OAuth2ServiceDelegate {
     
+    // MARK: - Properties
     private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/token"
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
