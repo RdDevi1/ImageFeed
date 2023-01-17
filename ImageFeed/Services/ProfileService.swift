@@ -29,36 +29,20 @@ final class ProfileService {
         
         let request = self.makeRequest(token: token)
 
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(error))
-                    
-                }
-                if let response = response as? HTTPURLResponse,
-                   response.statusCode < 200 || response.statusCode > 299 {
-                    completion(.failure(ProfileError.codeError))
-                }
-                
-                guard let data = data else { return }
-                
-                do {
-                    let jsonData = try JSONDecoder().decode(ProfileResult.self, from: data)
-                    
-                    let profile = Profile(
-                        username: jsonData.username,
-                        name: "\(jsonData.firstName) \(jsonData.lastName)",
-                        loginName: "@\(jsonData.username)",
-                        bio: jsonData.bio
-                    )
-                    self.profile = profile
-                    completion(.success(profile))
-                    print("GOOD ---------------------------------------> profile in profile")
-                } catch {
-                    completion(.failure(ProfileError.decodeError))
-                    self.lastToken = nil
-                    print(" ERROR -------------------------------------->  profile lost ")
-                }
+        let task = urlSession.objectTask(for: request) { (result: Result<ProfileResult, Error>) in
+            
+            switch result {
+            case .success(let jsonData):
+                let profile = Profile(
+                    username: jsonData.username,
+                    name: "\(jsonData.firstName) \(jsonData.lastName)",
+                    loginName: "@\(jsonData.username)",
+                    bio: jsonData.bio
+                )
+                self.profile = profile
+                completion(.success(profile))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
         self.task = task

@@ -22,6 +22,7 @@
 		C489A53E295DCE79005A6D02 /* OAuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489A53D295DCE79005A6D02 /* OAuthTokenResponse.swift */; };
 		C489A541295DD366005A6D02 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489A540295DD366005A6D02 /* OAuth2Service.swift */; };
 		C489A54329633060005A6D02 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */; };
+		C494EA2E2976CCF2009FC93A /* URLSession extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494EA2D2976CCF2009FC93A /* URLSession extension.swift */; };
 		C49F41222926637400CC2B85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F41212926637400CC2B85 /* AppDelegate.swift */; };
 		C49F41242926637400CC2B85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F41232926637400CC2B85 /* SceneDelegate.swift */; };
 		C49F41262926637400CC2B85 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F41252926637400CC2B85 /* ImagesListViewController.swift */; };
@@ -47,6 +48,7 @@
 		C489A53D295DCE79005A6D02 /* OAuthTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponse.swift; sourceTree = "<group>"; };
 		C489A540295DD366005A6D02 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
+		C494EA2D2976CCF2009FC93A /* URLSession extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession extension.swift"; sourceTree = "<group>"; };
 		C49F411E2926637400CC2B85 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49F41212926637400CC2B85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C49F41232926637400CC2B85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				C41B3561296F01FA00866B24 /* UIBlockingProgressHUD.swift */,
 				C4245227293E80A000CD9A77 /* UIColor .swift */,
+				C494EA2D2976CCF2009FC93A /* URLSession extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -127,11 +130,18 @@
 			isa = PBXGroup;
 			children = (
 				C489A540295DD366005A6D02 /* OAuth2Service.swift */,
-				C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */,
 				C41B356329703E1500866B24 /* ProfileService.swift */,
 				C41B3567297475FD00866B24 /* ProfileImageService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C494EA2F2976DD26009FC93A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		C49F41152926637400CC2B85 = {
@@ -163,6 +173,7 @@
 				C42CA353293A1FCD00F65453 /* Profile */,
 				C4BBE5402930E7FB00777BC5 /* ImagesList */,
 				C42CB2DF293F6BC7006CFF06 /* SingleImageView */,
+				C494EA2F2976DD26009FC93A /* Storage */,
 				C4245226293E806B00CD9A77 /* Helpers */,
 				C49F41272926637500CC2B85 /* Main.storyboard */,
 				C49F412A2926637600CC2B85 /* Assets.xcassets */,
@@ -263,6 +274,7 @@
 				C41B356429703E1500866B24 /* ProfileService.swift in Sources */,
 				C49F41262926637400CC2B85 /* ImagesListViewController.swift in Sources */,
 				C489A541295DD366005A6D02 /* OAuth2Service.swift in Sources */,
+				C494EA2E2976CCF2009FC93A /* URLSession extension.swift in Sources */,
 				C4BBE53F2930E7CC00777BC5 /* ImagesListCell.swift in Sources */,
 				C489A53E295DCE79005A6D02 /* OAuthTokenResponse.swift in Sources */,
 				C4A785602965E31B0074CE84 /* SplashViewController.swift in Sources */,

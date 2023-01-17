@@ -23,7 +23,6 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         
         setProfileContent()
-        
         updateProfileDetails(profile: profileService.profile)
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
@@ -34,12 +33,13 @@ final class ProfileViewController: UIViewController {
             guard let self = self else { return }
             self.updateAvatar()
         }
+        
         updateAvatar()
     }
 
     
     // MARK: - Private methods
-    private func updateAvatar() {                                   // 8
+    private func updateAvatar() {
             guard
                 let profileImageURL = ProfileImageService.shared.avatarURL,
                 let url = URL(string: profileImageURL)

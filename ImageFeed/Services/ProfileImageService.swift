@@ -27,37 +27,21 @@ final class ProfileImageService {
         
         let request = self.makeRequest(username: username, token: oAuth2TokenStorage.bearerToken)
         
-        let task = urlSession.dataTask(with: request) { data, responce, error in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                if let error {
-                    completion(.failure(error))
-                    return
-                }
+        let task = urlSession.objectTask(for: request) { (result: Result<UserResult, Error>) in
+            
+            switch result {
+            case .success(let jsonData):
+                let profileImageURL = jsonData.profileImage.small
+                self.avatarURL = profileImageURL
+                completion(.success(profileImageURL))
                 
-                if let response = responce as? HTTPURLResponse,
-                   response.statusCode < 200 || response.statusCode > 299 {
-                    completion(.failure(ProfileImageError.codeError))
-                    print("ERROR ------------------------------------------> bad code responce: \(response.statusCode)")
-                }
-                
-                guard let data else { return }
-                
-                do {
-                    let jsonData = try JSONDecoder().decode(UserResult.self, from: data)
-                    let profileImageURL = jsonData.profileImage.small
-                    self.avatarURL = profileImageURL
-                    completion(.success(profileImageURL))
-                    print("GOOD ----------------------------------------> avatarURL is here")
-                    NotificationCenter.default.post(
-                        name: ProfileImageService.DidChangeNotification,
-                        object: self,
-                        userInfo: ["URL": profileImageURL]
-                    )
-                } catch {
-                    completion(.failure(ProfileImageError.decodeError))
-                    print("ERROR ----------------------------------------> avatarURL decodeError")
-                }
+                NotificationCenter.default.post(
+                    name: ProfileImageService.DidChangeNotification,
+                    object: self,
+                    userInfo: ["URL": profileImageURL]
+                )
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
         
@@ -65,7 +49,7 @@ final class ProfileImageService {
         task.resume()
     }
     
-        
+    
     private func makeRequest(username: String, token: String?) -> URLRequest {
         guard let url = URL(string: userImagesURLString) else { fatalError("Failed to create URL") }
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
@@ -73,4 +57,5 @@ final class ProfileImageService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
+    
 }

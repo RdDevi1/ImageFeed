@@ -16,7 +16,7 @@ final class SingleImageViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
    
-    //MARK: -
+    //MARK: - LifeCircle
     
     override func viewDidLoad() {
         super.viewDidLoad()

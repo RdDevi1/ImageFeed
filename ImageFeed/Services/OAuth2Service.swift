@@ -26,6 +26,29 @@ final class OAuth2Service: OAuth2ServiceDelegate {
         task?.cancel()
         lastCode = code
         
+        
+        let request = makeRequest(code: code)
+        
+        let task = urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
+            
+            switch result {
+            case .success(let jsonData):
+                completion(.success(jsonData.accessToken))
+                self.task = nil
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        self.task = task
+        task.resume()
+    }
+    
+    
+    private func makeRequest(code: String) -> URLRequest {
+        
+        guard let url = URL(string: unsplashAuthorizeURLString) else { fatalError("Failed to create URL") }
+        var request = URLRequest(url: url)
+        
         var urlComponents = URLComponents(string: self.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: ConstantsUnsplash.accessKey),
@@ -35,46 +58,9 @@ final class OAuth2Service: OAuth2ServiceDelegate {
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
         
-        let url = urlComponents.url!
-        var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            
-            if let error {
-                completion(.failure(error))
-                self.lastCode = nil
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 || response.statusCode >= 300
-            {
-                completion(.failure(OAuth2Error.codeError))
-                print("ERROR ------------------------------------------> bad code responce: \(response.statusCode)")
-                return
-            }
-            
-            guard let data else { return }
-            
-            do {
-                let jsonResponce = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(jsonResponce.accessToken))
-                    OAuth2TokenStorage().bearerToken = jsonResponce.accessToken
-                    self.task = nil
-                    print("GOOD -----------------------------------------> token save")
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(OAuth2Error.decodeError))
-                    self.task = nil
-                    print("ERROR ----------------------------------------> token decodeError")
-                }
-            }
-        }
-        self.task = task
-        task.resume()
+        return request
     }
+    
 }
 
