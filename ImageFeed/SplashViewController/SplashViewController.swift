@@ -78,6 +78,7 @@ extension SplashViewController {
                 self.fetchProfile(token: token)
             case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
+                self.showAlert(vc: self)
                 print(error)
             }
         }
@@ -93,10 +94,24 @@ extension SplashViewController {
                     self.switchToTabBarController()
                 }
             case .failure(let error):
+                self.showAlert(vc: self)
                 print(error)
             }
             UIBlockingProgressHUD.dismiss()
         }
+    }
+}
+
+extension SplashViewController {
+    func showAlert(vc: UIViewController) {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "Ok", style: .cancel)
+        alert.addAction(alertAction)
+        vc.present(self, animated: true)
     }
 }
 

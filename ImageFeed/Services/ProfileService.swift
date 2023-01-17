@@ -41,6 +41,7 @@ final class ProfileService {
                 )
                 self.profile = profile
                 completion(.success(profile))
+                print("SUCCESS--------------------> profile is here")
             case .failure(let error):
                 completion(.failure(error))
             }
