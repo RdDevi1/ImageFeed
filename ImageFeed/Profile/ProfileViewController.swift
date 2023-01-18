@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -40,14 +41,25 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Private methods
     private func updateAvatar() {
-            guard
-                let profileImageURL = ProfileImageService.shared.avatarURL,
-                let url = URL(string: profileImageURL)
-            else { return }
-            // TODO [Sprint 11] Обновить аватар, используя Kingfisher
-        }
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        
+        avatarImageView.kf.setImage(with: url,
+                                    placeholder: UIImage(systemName: "person.crop.circle.fill"),
+                                    options: [
+                                        .processor(processor),
+                                        .transition(.fade(1))
+                                    ]
+        )
+    }
     
     private func createProfileImage() {
+        avatarImageView.layer.masksToBounds = true
+        avatarImageView.layer.cornerRadius = 35
         createViewOnVC(newView: avatarImageView)
     }
     
@@ -122,7 +134,6 @@ final class ProfileViewController: UIViewController {
         view.addSubview(newView)
     }
 }
-
 
 
 // MARK: - Update profile

@@ -22,7 +22,7 @@ final class OAuth2Service: OAuth2ServiceDelegate {
         
         assert(Thread.isMainThread)  // Проверяем, что код выполняется из главного потока
         
-        if lastCode == code { return }
+        guard lastCode != code else { return }
         task?.cancel()
         lastCode = code
         

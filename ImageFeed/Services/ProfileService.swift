@@ -23,7 +23,7 @@ final class ProfileService {
         
         assert(Thread.isMainThread)
         
-        if lastToken == token { return }
+        guard lastToken != token else { return }
         task?.cancel()
         lastToken = token
         
