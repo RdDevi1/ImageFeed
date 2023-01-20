@@ -15,15 +15,31 @@ final class SplashViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     
+    let splashLogoView = UIImageView()
+    
+    
     
     //MARK: - LifeCicle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setSplashViewLayout()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token = oAuth2TokenStorage.bearerToken {
+            UIBlockingProgressHUD.show()
             fetchProfile(token: token)
         } else {
-            performSegue(withIdentifier: Constants.showAuthScreenSegueIdentifier, sender: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            
+            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
+            else { return }
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
         }
     }
     
@@ -36,21 +52,6 @@ final class SplashViewController: UIViewController {
             .instantiateViewController(withIdentifier: "TabBarViewController")
         
         window.rootViewController = tabBarController
-    }
-}
-
-extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.showAuthScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for ShowAuthenticationScreenSegueIdentifier") }
-            
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
     }
 }
 
@@ -102,6 +103,7 @@ extension SplashViewController {
     }
 }
 
+// MARK: - Alert
 extension SplashViewController {
     func showAlert(vc: UIViewController) {
         let alert = UIAlertController(
@@ -112,6 +114,21 @@ extension SplashViewController {
         let alertAction = UIAlertAction(title: "Ok", style: .cancel)
         alert.addAction(alertAction)
         vc.present(self, animated: true)
+    }
+}
+
+
+// MARK: - Layout
+extension SplashViewController {
+    private func setSplashViewLayout() {
+        view.backgroundColor = .ypBlack
+        splashLogoView.image = UIImage(named: "splash_screen_logo")
+        createViewOnVC(newView: splashLogoView, setIn: view)
+        
+        NSLayoutConstraint.activate([
+            splashLogoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            splashLogoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
 }
 

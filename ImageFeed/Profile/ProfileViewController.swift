@@ -23,7 +23,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        setProfileContent()
+        setProfileViewLayout()
         updateProfileDetails(profile: profileService.profile)
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
@@ -60,32 +60,33 @@ final class ProfileViewController: UIViewController {
     private func createProfileImage() {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = 35
-        createViewOnVC(newView: avatarImageView)
+        avatarImageView.image = UIImage(named: "Avatar")
+        createViewOnVC(newView: avatarImageView, setIn: view)
     }
     
     private func createProfileNameLabel() {
         profileNameLabel.text = "name"
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 23)
         profileNameLabel.textColor = .white
-        createViewOnVC(newView: profileNameLabel)
+        createViewOnVC(newView: profileNameLabel, setIn: view)
     }
     
     private func createLoginLabel() {
         loginLabel.text = "login"
         loginLabel.font = UIFont(name: "System", size: 13)
         loginLabel.textColor = .ypGray
-        createViewOnVC(newView: loginLabel)
+        createViewOnVC(newView: loginLabel, setIn: view)
     }
     
     private func createDescriptionLabel() {
         descriptionLabel.text = "bio"
         descriptionLabel.font = UIFont(name: "System", size: 13)
         descriptionLabel.textColor = .white
-        createViewOnVC(newView: descriptionLabel)
+        createViewOnVC(newView: descriptionLabel, setIn: view)
     }
     
     private func createLogoutButton() {
-        createViewOnVC(newView: logoutButton)
+        createViewOnVC(newView: logoutButton, setIn: view)
     }
     
     private func createVStackView() {
@@ -95,7 +96,7 @@ final class ProfileViewController: UIViewController {
         vStackView.addArrangedSubview(profileNameLabel)
         vStackView.addArrangedSubview(loginLabel)
         vStackView.addArrangedSubview(descriptionLabel)
-        createViewOnVC(newView: vStackView)
+        createViewOnVC(newView: vStackView, setIn: view)
     }
     
     private func activateConstraints() {
@@ -117,7 +118,7 @@ final class ProfileViewController: UIViewController {
     }
     
     
-    private func setProfileContent() {
+    private func setProfileViewLayout() {
         assert(Thread.isMainThread)
         view.backgroundColor = .ypBlack
         createProfileImage()
@@ -129,10 +130,6 @@ final class ProfileViewController: UIViewController {
         activateConstraints()
     }
     
-    private func createViewOnVC(newView: UIView) {
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(newView)
-    }
 }
 
 
