@@ -18,7 +18,6 @@ final class SplashViewController: UIViewController {
     let splashLogoView = UIImageView()
     
     
-    
     //MARK: - LifeCicle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +32,7 @@ final class SplashViewController: UIViewController {
             UIBlockingProgressHUD.show()
             fetchProfile(token: token)
         } else {
+            
             let storyboard = UIStoryboard(name: "Main", bundle: .main)
             
             guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
@@ -63,6 +63,22 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
+        }
+    }
+}
+
+// MARK: - Segue
+extension SplashViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.showAuthScreenSegueIdentifier {
+            guard
+                let navigationController = segue.destination as? UINavigationController,
+                let viewController = navigationController.viewControllers[0] as? AuthViewController
+            else { fatalError("Failed to prepare for \(Constants.showAuthScreenSegueIdentifier)") }
+            
+            viewController.delegate = self
+        } else {
+            super.prepare(for: segue, sender: sender)
         }
     }
 }
