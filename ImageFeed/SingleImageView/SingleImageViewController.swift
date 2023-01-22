@@ -12,8 +12,8 @@ final class SingleImageViewController: UIViewController {
     
    //MARK: - IBOutlets
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     
    
     //MARK: - LifeCircle

@@ -3,20 +3,59 @@ import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
-    // MARK: - Properties
-    
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    private var avatarImageView = UIImageView(image: UIImage(named: "Avatar")!)
-    private var profileNameLabel = UILabel()
-    private var loginLabel = UILabel()
-    private var descriptionLabel = UILabel()
-    private let logoutButton = UIButton.systemButton(with: UIImage(named: "logout_button")!,
-                                                     target: ProfileViewController.self,
-                                                     action: nil)
-    let vStackView = UIStackView()
+    private lazy var avatarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Avatar")
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 35
+        return imageView
+    }()
+    
+    private lazy var profileNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "name"
+        label.font = UIFont.boldSystemFont(ofSize: 23)
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var loginLabel: UILabel = {
+        let label = UILabel()
+        label.text = "login"
+        label.font = UIFont(name: "System", size: 13)
+        label.textColor = .ypGray
+        return label
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "bio"
+        label.font = UIFont(name: "System", size: 13)
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton.systemButton(with: UIImage(named: "logout_button")!,
+                                           target: ProfileViewController.self,
+                                           action: nil)
+        return button
+    }()
+    
+    private lazy var vStackView: UIStackView = {
+        let vStack = UIStackView()
+        vStack.distribution = .equalSpacing
+        vStack.spacing = 8
+        vStack.axis = .vertical
+        vStack.addArrangedSubview(profileNameLabel)
+        vStack.addArrangedSubview(loginLabel)
+        vStack.addArrangedSubview(descriptionLabel)
+        return vStack
+    }()
     
     
     // MARK: - Lifecycle
@@ -27,7 +66,7 @@ final class ProfileViewController: UIViewController {
         updateProfileDetails(profile: profileService.profile)
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.DidChangeNotification,
+            forName: ProfileImageService.didChangeNotification,
             object: nil,
             queue: .main
         ) { [weak self] _ in
@@ -57,47 +96,6 @@ final class ProfileViewController: UIViewController {
         )
     }
     
-    private func createProfileImage() {
-        avatarImageView.layer.masksToBounds = true
-        avatarImageView.layer.cornerRadius = 35
-        avatarImageView.image = UIImage(named: "Avatar")
-        createViewOnVC(newView: avatarImageView, setIn: view)
-    }
-    
-    private func createProfileNameLabel() {
-        profileNameLabel.text = "name"
-        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 23)
-        profileNameLabel.textColor = .white
-        createViewOnVC(newView: profileNameLabel, setIn: view)
-    }
-    
-    private func createLoginLabel() {
-        loginLabel.text = "login"
-        loginLabel.font = UIFont(name: "System", size: 13)
-        loginLabel.textColor = .ypGray
-        createViewOnVC(newView: loginLabel, setIn: view)
-    }
-    
-    private func createDescriptionLabel() {
-        descriptionLabel.text = "bio"
-        descriptionLabel.font = UIFont(name: "System", size: 13)
-        descriptionLabel.textColor = .white
-        createViewOnVC(newView: descriptionLabel, setIn: view)
-    }
-    
-    private func createLogoutButton() {
-        createViewOnVC(newView: logoutButton, setIn: view)
-    }
-    
-    private func createVStackView() {
-        vStackView.distribution = .equalSpacing
-        vStackView.spacing = 8
-        vStackView.axis = .vertical
-        vStackView.addArrangedSubview(profileNameLabel)
-        vStackView.addArrangedSubview(loginLabel)
-        vStackView.addArrangedSubview(descriptionLabel)
-        createViewOnVC(newView: vStackView, setIn: view)
-    }
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
@@ -121,12 +119,9 @@ final class ProfileViewController: UIViewController {
     private func setProfileViewLayout() {
         assert(Thread.isMainThread)
         view.backgroundColor = .ypBlack
-        createProfileImage()
-        createProfileNameLabel()
-        createLoginLabel()
-        createDescriptionLabel()
-        createLogoutButton()
-        createVStackView()
+        createViewOnVC(newView: avatarImageView, setIn: view)
+        createViewOnVC(newView: vStackView, setIn: view)
+        createViewOnVC(newView: logoutButton, setIn: view)
         activateConstraints()
     }
     

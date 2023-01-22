@@ -304,7 +304,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LU1-hL-qMk">
             <objects>
-                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="9YG-nF-PV0" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="9YG-nF-PV0" customClass="NavigationController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="1cM-TH-Cxp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QIy-JY-WQH">

@@ -14,8 +14,13 @@ final class SplashViewController: UIViewController {
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private var isAlreadyShownAuthScreen: Bool = false
     
-    let splashLogoView = UIImageView()
+    private lazy var splashLogoView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "splash_screen_logo")
+        return imageView
+    }()
     
     
     //MARK: - LifeCicle
@@ -27,20 +32,8 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let token = oAuth2TokenStorage.bearerToken {
-            UIBlockingProgressHUD.show()
-            fetchProfile(token: token)
-        } else {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: .main)
-            
-            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
-            else { return }
-            authViewController.delegate = self
-            authViewController.modalPresentationStyle = .fullScreen
-            present(authViewController, animated: true)
-        }
+        guard isAlreadyShownAuthScreen == false else { return }
+        checkAuth()
     }
     
     
@@ -53,13 +46,30 @@ final class SplashViewController: UIViewController {
         
         window.rootViewController = tabBarController
     }
+    
+    
+    private func checkAuth() {
+        if let token = oAuth2TokenStorage.bearerToken {
+            UIBlockingProgressHUD.show()
+            fetchProfile(token: token)
+            
+        } else {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            
+            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
+            else { return }
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
+        }
+    }
 }
-
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        switchToTabBarController()
-        vc.dismiss(animated: true) { [weak self] in
+        isAlreadyShownAuthScreen = true
+        dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
             UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
@@ -106,8 +116,8 @@ extension SplashViewController {
             guard let self = self else { return }
             switch result {
             case .success(let profile):
+                self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
                 DispatchQueue.main.async {
-                    self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
                     self.switchToTabBarController()
                 }
             case .failure(let error):
@@ -127,9 +137,12 @@ extension SplashViewController {
             message: "Не удалось войти в систему",
             preferredStyle: .alert
         )
-        let alertAction = UIAlertAction(title: "Ok", style: .cancel)
+        let alertAction = UIAlertAction(
+            title: "Ok",
+            style: .cancel
+        )
         alert.addAction(alertAction)
-        vc.present(self, animated: true)
+        vc.present(alert, animated: true)
     }
 }
 
@@ -138,7 +151,6 @@ extension SplashViewController {
 extension SplashViewController {
     private func setSplashViewLayout() {
         view.backgroundColor = .ypBlack
-        splashLogoView.image = UIImage(named: "splash_screen_logo")
         createViewOnVC(newView: splashLogoView, setIn: view)
         
         NSLayoutConstraint.activate([
@@ -147,4 +159,3 @@ extension SplashViewController {
         ])
     }
 }
-

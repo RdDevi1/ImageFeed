@@ -20,7 +20,7 @@ extension URLSession {
                     response.statusCode < 200 || response.statusCode > 299
                 {
                     completion(.failure(URLSessionError.codeError))
-                    print("ERROR ------------------------------------------> bad code responce: \(response.statusCode)")
+                    print("ERROR ------------------------------------------> bad code responce: \(response.statusCode) for model: \(T.self)" )
                     return
                 }
                 

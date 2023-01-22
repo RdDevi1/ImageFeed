@@ -25,9 +25,7 @@ final class OAuth2Service: OAuth2ServiceDelegate {
         guard lastCode != code else { return }
         task?.cancel()
         lastCode = code
-        
-        
-        let request = makeRequest(code: code)
+        guard let request = makeRequest(code: code) else { return }
         
         let task = urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
             
@@ -45,23 +43,20 @@ final class OAuth2Service: OAuth2ServiceDelegate {
     }
     
     
-    private func makeRequest(code: String) -> URLRequest {
+    private func makeRequest(code: String) -> URLRequest? {
         
-        guard let url = URL(string: unsplashAuthorizeURLString) else { fatalError("Failed to create URL") }
-        var request = URLRequest(url: url)
-        
-        var urlComponents = URLComponents(string: self.unsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: ConstantsUnsplash.accessKey),
-            URLQueryItem(name: "client_secret", value: ConstantsUnsplash.secretKey),
-            URLQueryItem(name: "redirect_uri", value: ConstantsUnsplash.redirectURI),
-            URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code")
-        ]
-        
-        request.httpMethod = "POST"
-        return request
+        if var urlComponents = URLComponents(string: unsplashAuthorizeURLString) {
+            urlComponents.queryItems = [
+                URLQueryItem(name: "client_id", value: ConstantsUnsplash.accessKey),
+                URLQueryItem(name: "client_secret", value: ConstantsUnsplash.secretKey),
+                URLQueryItem(name: "redirect_uri", value: ConstantsUnsplash.redirectURI),
+                URLQueryItem(name: "code", value: code),
+                URLQueryItem(name: "grant_type", value: "authorization_code")
+            ]
+            var request = URLRequest(url: urlComponents.url!)
+            request.httpMethod = "POST"
+            return request
+        }
+        return nil
     }
-    
 }
-

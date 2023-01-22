@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configurationForConnecting connectingSceneSession: UISceneSession,
         options: UIScene.ConnectionOptions
     ) -> UISceneConfiguration {
-        let sceneConfiguration = UISceneConfiguration(          // 1
+        let sceneConfiguration = UISceneConfiguration(          // 1 Создаём конфигурацию, используя доступный конструктор, и задаём ей имя "Main"
             name: "Main",
             sessionRole: connectingSceneSession.role
         )
-        sceneConfiguration.delegateClass = SceneDelegate.self   // 2
+        sceneConfiguration.delegateClass = SceneDelegate.self   // 2 Выставляем delegateClass равным классу уже существующего делегата — SceneDelegate
         return sceneConfiguration
     }
 
