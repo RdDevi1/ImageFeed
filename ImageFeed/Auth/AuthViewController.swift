@@ -14,7 +14,7 @@ final class AuthViewController: UIViewController {
     }
     
     private let oAuth2Service = OAuth2Service()
-    private var oAuth2TokenStorage = OAuth2TokenStorage()
+    private var oAuth2TokenStorage = OAuth2TokenStorage.shared
     
     @IBOutlet private weak var authLogoImage: UIImageView!
     @IBOutlet private weak var logInButton: UIButton!

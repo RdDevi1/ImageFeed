@@ -2,19 +2,39 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
     
+    // MARK: - Outlets
     @IBOutlet private var tableView: UITableView!
     
-    
-    private var photosName = [String]()
     private enum Constants {
         static let showSingleImageSegueIdentifier = "ShowSingleImage"
     }
-     
+    
+    // MARK: - Properties
+    
+    private var photos: [Photo] = []
+    private var photosName = [String]()
+    private var imagesListServiceObserver: NSObjectProtocol?
+    private let imagesListService = ImagesListService.shared
+    
+   
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        imagesListServiceObserver = NotificationCenter.default.addObserver(
+            forName: ImagesListService.didChangeNotification,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                guard let self else { return }
+                self.updateTableViewAnimated()
+            }
+        )
+        
+        imagesListService.fetchPhotosNextPage()
         
         photosName = Array(0..<20).map{ "\($0)" }
     }
@@ -36,6 +56,22 @@ final class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    
+    private func updateTableViewAnimated() {
+        let oldCount = photos.count
+        let newCount = imagesListService.photos.count
+        photos = imagesListService.photos
+        if oldCount != newCount {
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map { i in
+                    IndexPath(row: i, section: 0)
+                }
+                
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            }
+        }
+    }
 }
 
 //MARK: - Extensions
@@ -60,6 +96,7 @@ extension ImagesListViewController: UITableViewDataSource {
 }
 
 extension ImagesListViewController {
+    
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else { return }
         
@@ -73,9 +110,17 @@ extension ImagesListViewController {
         let likeImage = isLiked ? UIImage(named: "Like_on") : UIImage(named: "Like_off")
         cell.likeButton.setImage(likeImage, for: .normal)
     }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            if indexPath.row + 1 == photos.count {
+                imagesListService.fetchPhotosNextPage()
+            }
+        }
 }
 
 extension ImagesListViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: Constants.showSingleImageSegueIdentifier, sender: indexPath)
     }
