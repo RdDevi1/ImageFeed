@@ -37,7 +37,7 @@ final class ImagesListService {
         if task != nil { return }
         
         
-        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
+        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage ?? 0 + 1
         let request = makeRequest(for: nextPage)
         
         let task = urlSession.objectTask(for: request) { (result: Result<[PhotoResult], Error>) in
