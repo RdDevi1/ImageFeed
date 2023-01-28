@@ -38,7 +38,7 @@ final class ImagesListService {
         
         
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage ?? 0 + 1
-        let request = makeRequest(for: nextPage)
+        let request = makeRequestPhoto(for: nextPage)
         
         let task = urlSession.objectTask(for: request) { (result: Result<[PhotoResult], Error>) in
             
@@ -76,7 +76,7 @@ final class ImagesListService {
     }
     
     
-    private func makeRequest(for nextPage: Int) -> URLRequest {
+    private func makeRequestPhoto(for nextPage: Int) -> URLRequest {
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
         
         guard var urlComponents = URLComponents(string: photoURL) else { fatalError() }
@@ -91,4 +91,49 @@ final class ImagesListService {
         return request
     }
     
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        let request = makeRequestForLike(for: photoId, isLike: isLike)
+        
+        let task = urlSession.objectTask(for: request) { (result: Result<PhotoResult, Error>) in
+            switch result {
+            case .success:
+                // Поиск индекса элемента
+                if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                    // Текущий элемент
+                    let photo = self.photos[index]
+                    // Копия элемента с инвертированным значением isLiked.
+                    let newPhoto = Photo(
+                        id: photo.id,
+                        size: photo.size,
+                        createdAt: photo.createdAt,
+                        welcomeDescription: photo.welcomeDescription,
+                        thumbImageURL: photo.thumbImageURL,
+                        largeImageURL: photo.largeImageURL,
+                        isLiked: !photo.isLiked
+                    )
+                    // Заменяем элемент в массиве.
+                    self.photos[index] = newPhoto
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+                
+                
+            }
+        }
+    }
+    private func makeRequestForLike(for photoId: String, isLike: Bool) -> URLRequest {
+        guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
+        //  /photos/:id/like
+        guard var urlComponents = URLComponents(string: defaultBaseURL) else { fatalError() }
+        urlComponents.path = "/photos/\(photoId)/like"
+        let url = urlComponents.url!
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "DELETE" : "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
 }
+

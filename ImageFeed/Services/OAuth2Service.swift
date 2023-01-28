@@ -16,7 +16,6 @@ final class OAuth2Service: OAuth2ServiceDelegate {
     private var lastCode: String? // значения code, которое было передано в последнем созданном запросе
     
     
-    
     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
         
         assert(Thread.isMainThread)  // Проверяем, что код выполняется из главного потока
