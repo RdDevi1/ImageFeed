@@ -40,8 +40,7 @@ final class ImagesListViewController: UIViewController {
         if segue.identifier == Constants.showSingleImageSegueIdentifier {
             let viewController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
-            let image = UIImage(named: photos[indexPath.row].thumbImageURL)
-            viewController.image = image
+            viewController.imageURL = URL(string: photos[indexPath.row].largeImageURL)
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -65,7 +64,17 @@ final class ImagesListViewController: UIViewController {
 }
 
 //MARK: - Extensions
+extension ImagesListViewController {
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == photos.count {
+            imagesListService.fetchPhotosNextPage()
+        }
+    }
+}
 
+
+// MARK: - UITableViewDataSource
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,10 +82,11 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         
         guard let imageListCell = cell as? ImagesListCell else { return UITableViewCell() }
-        
+        imageListCell.delegate = self
         imageListCell.configCell(for: imageListCell, from: photos, with: indexPath)
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
@@ -85,6 +95,7 @@ extension ImagesListViewController: UITableViewDataSource {
 }
 
 
+// MARK: - UITableViewDelegate
 extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -92,11 +103,24 @@ extension ImagesListViewController: UITableViewDelegate {
     }
 }
 
-extension ImagesListViewController {
+
+// MARK: - ImagesListCellDelegate
+extension ImagesListViewController: ImagesListCellDelegate {
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == photos.count {
-            imagesListService.fetchPhotosNextPage()
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        imagesListService.changeLike(photoId: photo.id, isLike: photo.isLiked) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                self.photos[indexPath.row].isLiked.toggle()
+                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+            case .failure(let error):
+                print(error)
+            }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

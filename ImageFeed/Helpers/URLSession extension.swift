@@ -31,7 +31,7 @@ extension URLSession {
                     completion(.success(jsonData))
                 } catch {
                     completion(.failure(URLSessionError.decodeError))
-                    print("ERROR ----------------------------------------> data for \(T.self) decodeError")
+                    print("ERROR ----------------------------------------> data decode for \(T.self) decodeError")
                 }
             }
         }

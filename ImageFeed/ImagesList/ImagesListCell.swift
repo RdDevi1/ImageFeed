@@ -1,6 +1,9 @@
 import UIKit
 import Kingfisher
 
+protocol ImagesListCellDelegate: AnyObject {
+    func imageListCellDidTapLike(_ cell: ImagesListCell)
+}
 
 final class ImagesListCell: UITableViewCell {
     
@@ -8,7 +11,12 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBAction private func likeButtonClicked() {
+        delegate?.imageListCellDidTapLike(self)
+    }
 
+    weak var delegate: ImagesListCellDelegate?
     static let reuseIdentifier = "ImagesListCell"
     
     private lazy var dateFormatter: DateFormatter = {
@@ -33,11 +41,14 @@ final class ImagesListCell: UITableViewCell {
             placeholder: UIImage(named: "placeholderImageList")
         )
         if let createdAt = photos[indexPath.row].createdAt {
-                    dateLabel.text = dateFormatter.string(from: createdAt)
-                }
-        
-        let isLiked = indexPath.row % 2 == 0
+            dateLabel.text = dateFormatter.string(from: createdAt)
+        }
+        setIsLiked(isLiked: photos[indexPath.row].isLiked)
+    }
+    
+    
+    func setIsLiked(isLiked: Bool) {
         let likeImage = isLiked ? UIImage(named: "Like_on") : UIImage(named: "Like_off")
-        cell.likeButton.setImage(likeImage, for: .normal)
+        likeButton.setImage(likeImage, for: .normal)
     }
 }

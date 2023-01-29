@@ -1,14 +1,16 @@
 import UIKit
+import Kingfisher
+
 
 final class SingleImageViewController: UIViewController {
     
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
+    var imageURL: URL!
+//        didSet {
+//            guard isViewLoaded else { return }
+//            imageView.image = image
+//            rescaleAndCenterImageInScrollView(image: image)
+//        }
+    
     
    //MARK: - IBOutlets
     
@@ -20,10 +22,9 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
+        setImage()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        rescaleAndCenterImageInScrollView(image: image)
     }
     
     //MARK: - IBActions
@@ -34,7 +35,7 @@ final class SingleImageViewController: UIViewController {
     
     @IBAction func didTapShareAction(_ sender: Any) {
         let share = UIActivityViewController(
-            activityItems: [image!],
+            activityItems: [imageView.image as Any],
             applicationActivities: nil
         )
         present(share, animated: true, completion: nil)
@@ -57,10 +58,44 @@ final class SingleImageViewController: UIViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
+    
+    private func setImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                self.showAlert()
+            }
+        }
+    }
 }
 
 extension SingleImageViewController: UIScrollViewDelegate {
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         imageView
+    }
+}
+
+extension SingleImageViewController {
+    
+    private func showAlert() {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так",
+            message: "Попробовать ещё раз?",
+            preferredStyle: .alert
+        )
+        let cancelAction = UIAlertAction(title: "Нет", style: .default)
+        let repeatAction = UIAlertAction(title: "Да", style: .cancel) { [weak self] _ in
+            guard let self else { return }
+            self.setImage()
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(repeatAction)
+        present(alert, animated: true)
     }
 }
