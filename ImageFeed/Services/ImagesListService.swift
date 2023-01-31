@@ -37,7 +37,7 @@ final class ImagesListService {
         if task != nil { return }
         
         
-        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage ?? 0 + 1
+        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         let request = makeRequestPhoto(for: nextPage)
         
         let task = urlSession.objectTask(for: request) { (result: Result<[PhotoResult], Error>) in
@@ -53,7 +53,6 @@ final class ImagesListService {
                                        largeImageURL: photoResult.urls.full,
                                        isLiked: photoResult.isLiked
                     )
-                    
                     self.photos.append(photo)
                 }
                 
