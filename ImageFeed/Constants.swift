@@ -9,7 +9,7 @@ let accessScope = "public+read_user+write_likes"
 //static let defaultBaseURL = URL(string: "https://api.unsplash.com")!
 
 let defaultBaseURL = "https://api.unsplash.com"
-let tokenURL = "\(defaultBaseURL)/oauth/token"
+let tokenURL = "https://unsplash.com/oauth/token"
 let profileURL = "\(defaultBaseURL)/me"
 let profileImageURL = "\(defaultBaseURL)/users"
 let photoURL =  "\(defaultBaseURL)/photos"

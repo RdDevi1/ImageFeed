@@ -16,7 +16,6 @@ struct Photo {
     let thumbImageURL: String
     let largeImageURL: String
     var isLiked: Bool
-    
 }
 
 
@@ -40,4 +39,9 @@ struct PhotoResult: Decodable {
         case isLiked = "liked_by_user"
         case id, width, height, description, urls
     }
+}
+
+
+struct LikeResult: Decodable {
+    let photo: PhotoResult
 }

@@ -9,7 +9,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Avatar")
+        imageView.image = UIImage(systemName: "person.circle.fill")
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 35
         return imageView
@@ -40,11 +40,12 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var logoutButton: UIButton = {
-        let button = UIButton.systemButton(with: UIImage(named: "logout_button")!,
-                                           target: ProfileViewController.self,
-                                           action: nil)
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
+        button.setImage(UIImage(named: "logout_button"), for: .normal)
         return button
     }()
+   
     
     private lazy var vStackView: UIStackView = {
         let vStack = UIStackView()
@@ -125,6 +126,35 @@ final class ProfileViewController: UIViewController {
         activateConstraints()
     }
     
+    
+    private func logout() {
+        oAuth2TokenStorage.bearerToken = nil
+        WebViewViewController.clean()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
+    }
+    
+    @objc
+    private func didTapLogoutButton() {
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Уверены, что хотите выйти?",
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
+        let confirmAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
+            guard let self else { return }
+            self.logout()
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(confirmAction)
+        
+        present(alert, animated: true)
+    }
 }
 
 

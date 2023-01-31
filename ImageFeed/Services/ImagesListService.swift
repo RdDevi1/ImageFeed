@@ -80,7 +80,7 @@ final class ImagesListService {
         assert(Thread.isMainThread)
         let request = makeRequestForLike(for: photoId, isLike: isLike)
         
-        let task = urlSession.objectTask(for: request) { (result: Result<PhotoResult, Error>) in
+        let task = urlSession.objectTask(for: request) { (result: Result<LikeResult, Error>) in
             switch result {
             case .success:
                 // Поиск индекса элемента
