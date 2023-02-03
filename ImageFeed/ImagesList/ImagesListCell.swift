@@ -19,12 +19,6 @@ final class ImagesListCell: UITableViewCell {
     weak var delegate: ImagesListCellDelegate?
     static let reuseIdentifier = "ImagesListCell"
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -40,8 +34,12 @@ final class ImagesListCell: UITableViewCell {
             with: url,
             placeholder: UIImage(named: "placeholderImageList")
         )
-        if let createdAt = photos[indexPath.row].createdAt {
-            dateLabel.text = dateFormatter.string(from: createdAt)
+       
+        if photos[indexPath.row].createdAt != nil {
+            let createdAt = photos[indexPath.row].createdAt
+            cell.dateLabel.text = createdAt?.dateTimeString
+        } else {
+            cell.dateLabel.text = ""
         }
         setIsLiked(isLiked: photos[indexPath.row].isLiked)
     }

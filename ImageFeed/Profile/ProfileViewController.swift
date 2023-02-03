@@ -5,7 +5,13 @@ final class ProfileViewController: UIViewController {
     
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
+    private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    
+    private let avatarImageViewGradient = CAGradientLayer()
+    private let profileNameLabelGradient = CAGradientLayer()
+    private let loginLabelGradient = CAGradientLayer()
+    private let descriptionLabelGradient = CAGradientLayer()
     
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -62,7 +68,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         setProfileViewLayout()
         updateProfileDetails(profile: profileService.profile)
         
@@ -74,10 +80,22 @@ final class ProfileViewController: UIViewController {
             guard let self = self else { return }
             self.updateAvatar()
         }
-        
         updateAvatar()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if profileService.profile == nil {
+            profileNameLabel.addGradient(gradient: profileNameLabelGradient, cornerRadius: 9)
+            loginLabel.addGradient(gradient: loginLabelGradient, cornerRadius: 9)
+            descriptionLabel.addGradient(gradient: descriptionLabelGradient, cornerRadius: 9)
+        }
+        if profileImageService.avatarURL == nil {
+            avatarImageView.addGradient(gradient: avatarImageViewGradient, cornerRadius: 35)
+        }
+    }
+    
     
     // MARK: - Private methods
     private func updateAvatar() {
@@ -86,15 +104,8 @@ final class ProfileViewController: UIViewController {
             let url = URL(string: profileImageURL)
         else { return }
         
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-        
-        avatarImageView.kf.setImage(with: url,
-                                    placeholder: UIImage(systemName: "person.crop.circle.fill"),
-                                    options: [
-                                        .processor(processor),
-                                        .transition(.fade(1))
-                                    ]
-        )
+        avatarImageView.removeGradient(gradient: avatarImageViewGradient)
+        avatarImageView.kf.setImage(with: url)
     }
     
     
@@ -164,6 +175,9 @@ extension ProfileViewController {
     
     private func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
+        profileNameLabel.removeGradient(gradient: profileNameLabelGradient)
+        loginLabel.removeGradient(gradient: loginLabelGradient)
+        descriptionLabel.removeGradient(gradient: descriptionLabelGradient)
         profileNameLabel.text = profile.name
         loginLabel.text = profile.loginName
         descriptionLabel.text = profile.bio

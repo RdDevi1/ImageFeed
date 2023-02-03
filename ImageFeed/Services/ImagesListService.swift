@@ -14,16 +14,10 @@ final class ImagesListService {
     
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
-    
+    private let formatter = ISO8601DateFormatter()
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
-    
-    private var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ssZ"
-        return formatter
-    }()
     
     
     //MARK: - Singleton
@@ -47,7 +41,7 @@ final class ImagesListService {
                 photoResult.forEach { photoResult in
                     let photo =  Photo(id: photoResult.id,
                                        size: CGSize(width: photoResult.width, height: photoResult.height),
-                                       createdAt: self.dateFormatter.date(from: photoResult.createdAt),
+                                       createdAt: Date().convertStringToDate(photoResult.createdAt),
                                        welcomeDescription: photoResult.description,
                                        thumbImageURL: photoResult.urls.thumb,
                                        largeImageURL: photoResult.urls.full,
