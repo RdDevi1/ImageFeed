@@ -5,18 +5,11 @@ import Kingfisher
 final class SingleImageViewController: UIViewController {
     
     var imageURL: URL!
-//        didSet {
-//            guard isViewLoaded else { return }
-//            imageView.image = image
-//            rescaleAndCenterImageInScrollView(image: image)
-//        }
-    
     
    //MARK: - IBOutlets
     
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var scrollView: UIScrollView!
-    
    
     //MARK: - LifeCircle
     
@@ -73,6 +66,8 @@ final class SingleImageViewController: UIViewController {
         }
     }
 }
+
+
 
 extension SingleImageViewController: UIScrollViewDelegate {
     

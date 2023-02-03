@@ -127,22 +127,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C42CA353293A1FCD00F65453 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		C42CB2DF293F6BC7006CFF06 /* SingleImageView */ = {
-			isa = PBXGroup;
-			children = (
-				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
-			);
-			path = SingleImageView;
-			sourceTree = "<group>";
-		};
 		C457AB652952EC4B0071E8D5 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,14 +134,6 @@
 				C457AB662952F0E60071E8D5 /* WebViewViewController.swift */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		C47C3D2C29676C5600AD6EA3 /* SplashViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
-			);
-			path = SplashViewController;
 			sourceTree = "<group>";
 		};
 		C489A53C295DCE31005A6D02 /* Models */ = {
@@ -178,16 +154,20 @@
 				C41B356329703E1500866B24 /* ProfileService.swift */,
 				C41B3567297475FD00866B24 /* ProfileImageService.swift */,
 				C415C45F2983EA050017CF6E /* ImagesListService.swift */,
+				C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C494EA2F2976DD26009FC93A /* Storage */ = {
+		C494404E298D17AA00E9D886 /* Presentations */ = {
 			isa = PBXGroup;
 			children = (
-				C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */,
+				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
+				C48D1E58297975B000D5C049 /* TabBarViewController.swift */,
+				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
+				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
 			);
-			path = Storage;
+			path = Presentations;
 			sourceTree = "<group>";
 		};
 		C49F41152926637400CC2B85 = {
@@ -214,15 +194,11 @@
 				C49F41212926637400CC2B85 /* AppDelegate.swift */,
 				C49F41232926637400CC2B85 /* SceneDelegate.swift */,
 				C457AB61295099770071E8D5 /* Constants.swift */,
-				C48D1E58297975B000D5C049 /* TabBarViewController.swift */,
-				C47C3D2C29676C5600AD6EA3 /* SplashViewController */,
+				C494404E298D17AA00E9D886 /* Presentations */,
 				C457AB652952EC4B0071E8D5 /* Auth */,
 				C489A53F295DD33B005A6D02 /* Services */,
 				C489A53C295DCE31005A6D02 /* Models */,
-				C42CA353293A1FCD00F65453 /* Profile */,
 				C4BBE5402930E7FB00777BC5 /* ImagesList */,
-				C42CB2DF293F6BC7006CFF06 /* SingleImageView */,
-				C494EA2F2976DD26009FC93A /* Storage */,
 				C4245226293E806B00CD9A77 /* Helpers */,
 				C49F41272926637500CC2B85 /* Main.storyboard */,
 				C49F412A2926637600CC2B85 /* Assets.xcassets */,

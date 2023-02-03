@@ -30,7 +30,6 @@ final class ImagesListService {
         assert(Thread.isMainThread)
         if task != nil { return }
         
-        
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         let request = makeRequestPhoto(for: nextPage)
         
@@ -41,7 +40,7 @@ final class ImagesListService {
                 photoResult.forEach { photoResult in
                     let photo =  Photo(id: photoResult.id,
                                        size: CGSize(width: photoResult.width, height: photoResult.height),
-                                       createdAt: Date().convertStringToDate(photoResult.createdAt),
+                                       createdAt: Date().convertStringToDate(photoResult.createdAt ?? ""),
                                        welcomeDescription: photoResult.description,
                                        thumbImageURL: photoResult.urls.thumb,
                                        largeImageURL: photoResult.urls.full,
