@@ -51,7 +51,7 @@ final class ProfileImageService {
     
     
     private func makeRequest(username: String, token: String?) -> URLRequest {
-        guard let url = URL(string: profileURL) else { fatalError("Failed to create URL") }
+        guard let url = URL(string: Constants.profileURL) else { fatalError("Failed to create URL") }
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

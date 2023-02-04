@@ -14,7 +14,6 @@ final class ImagesListService {
     
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
-    private let formatter = ISO8601DateFormatter()
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
@@ -30,7 +29,13 @@ final class ImagesListService {
         assert(Thread.isMainThread)
         if task != nil { return }
         
-        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
+        let nextPage: Int
+        if let lastLoadedPage {
+            nextPage = lastLoadedPage + 1
+        } else {
+            nextPage = 1
+        }
+        
         let request = makeRequestPhoto(for: nextPage)
         
         let task = urlSession.objectTask(for: request) { (result: Result<[PhotoResult], Error>) in
@@ -40,7 +45,7 @@ final class ImagesListService {
                 photoResult.forEach { photoResult in
                     let photo =  Photo(id: photoResult.id,
                                        size: CGSize(width: photoResult.width, height: photoResult.height),
-                                       createdAt: Date().convertStringToDate(photoResult.createdAt ?? ""),
+                                       createdAt: Date.convertStringToDate(photoResult.createdAt ?? ""),
                                        welcomeDescription: photoResult.description,
                                        thumbImageURL: photoResult.urls.thumb,
                                        largeImageURL: photoResult.urls.full,
@@ -103,7 +108,7 @@ final class ImagesListService {
     private func makeRequestPhoto(for nextPage: Int) -> URLRequest {
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
         
-        guard var urlComponents = URLComponents(string: photoURL) else { fatalError() }
+        guard var urlComponents = URLComponents(string: Constants.photoURL) else { fatalError() }
         urlComponents.queryItems = [
             URLQueryItem(name: "page", value:  "\(nextPage)"),
             URLQueryItem(name: "per_page", value: "10")
@@ -118,7 +123,7 @@ final class ImagesListService {
     
     private func makeRequestForLike(for photoId: String, isLike: Bool) -> URLRequest {
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
-        guard var urlComponents = URLComponents(string: defaultBaseURL) else { fatalError() }
+        guard var urlComponents = URLComponents(string: Constants.defaultBaseURL) else { fatalError() }
         urlComponents.path = "/photos/\(photoId)/like"
         let url = urlComponents.url!
         var request = URLRequest(url: url)

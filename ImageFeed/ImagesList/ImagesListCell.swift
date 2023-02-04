@@ -41,6 +41,7 @@ final class ImagesListCell: UITableViewCell {
         } else {
             cell.dateLabel.text = ""
         }
+        
         setIsLiked(isLiked: photos[indexPath.row].isLiked)
     }
     

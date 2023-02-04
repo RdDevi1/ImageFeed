@@ -139,8 +139,7 @@ final class ProfileViewController: UIViewController {
     
     
     private func logout() {
-        oAuth2TokenStorage.bearerToken = nil
-        WebViewViewController.clean()
+        oAuth2TokenStorage.clean()
         tabBarController?.dismiss(animated: true)
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         window.rootViewController = SplashViewController()
@@ -149,22 +148,14 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func didTapLogoutButton() {
-        let alert = UIAlertController(
-            title: "Пока, пока!",
-            message: "Уверены, что хотите выйти?",
-            preferredStyle: .alert
-        )
-        
-        let cancelAction = UIAlertAction(title: "Нет", style: .cancel)
-        let confirmAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-            guard let self else { return }
+        showAlert(title: "Пока, пока",
+                  message: "Уверены что хотите выйти?",
+                  firstAction: "Да",
+                  secondAction: "Нет"
+        ) { [weak self] _ in
+            guard let self = self else { return }
             self.logout()
-        }
-        
-        alert.addAction(cancelAction)
-        alert.addAction(confirmAction)
-        
-        present(alert, animated: true)
+        } secondAlertAction: { _ in }
     }
 }
 

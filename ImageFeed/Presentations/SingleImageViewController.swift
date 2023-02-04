@@ -76,21 +76,19 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
 }
 
+
 extension SingleImageViewController {
     
     private func showAlert() {
-        let alert = UIAlertController(
-            title: "Что-то пошло не так",
-            message: "Попробовать ещё раз?",
-            preferredStyle: .alert
-        )
-        let cancelAction = UIAlertAction(title: "Нет", style: .default)
-        let repeatAction = UIAlertAction(title: "Да", style: .cancel) { [weak self] _ in
-            guard let self else { return }
+        showAlert(title: "Что-то пошло не так(",
+                  message: "Попробовать ещё раз?",
+                  firstAction: "Не надо",
+                  secondAction: "Повторить"
+        ) { _ in
+            self.dismiss(animated: true)
+        } secondAlertAction: { [weak self] _ in
+            guard let self = self else { return }
             self.setImage()
         }
-        alert.addAction(cancelAction)
-        alert.addAction(repeatAction)
-        present(alert, animated: true)
     }
 }

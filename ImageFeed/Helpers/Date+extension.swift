@@ -20,7 +20,7 @@ extension Date {
     
     var dateTimeString: String { Date.dateFormatter.string(from: self) }
     
-    func convertStringToDate(_ string: String) -> Date? {
+    static func convertStringToDate(_ string: String) -> Date? {
         let dateFormatter = ISO8601DateFormatter()
         let date = dateFormatter.date(from: string)
         return date
