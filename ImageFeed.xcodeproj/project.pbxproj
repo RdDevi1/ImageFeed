@@ -162,6 +162,7 @@
 		C494404E298D17AA00E9D886 /* Presentations */ = {
 			isa = PBXGroup;
 			children = (
+				C4BBE5402930E7FB00777BC5 /* ImagesList */,
 				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
 				C48D1E58297975B000D5C049 /* TabBarViewController.swift */,
 				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
@@ -198,7 +199,6 @@
 				C457AB652952EC4B0071E8D5 /* Auth */,
 				C489A53F295DD33B005A6D02 /* Services */,
 				C489A53C295DCE31005A6D02 /* Models */,
-				C4BBE5402930E7FB00777BC5 /* ImagesList */,
 				C4245226293E806B00CD9A77 /* Helpers */,
 				C49F41272926637500CC2B85 /* Main.storyboard */,
 				C49F412A2926637600CC2B85 /* Assets.xcassets */,

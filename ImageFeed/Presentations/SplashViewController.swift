@@ -129,7 +129,7 @@ extension SplashViewController {
                 print(error)
             }
             UIBlockingProgressHUD.dismiss()
-        }
+        }                                      
     }
 }
 

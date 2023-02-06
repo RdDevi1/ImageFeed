@@ -42,7 +42,6 @@ extension UIViewController {
 
 
 
-
 extension UIView {
     
     func addGradient(gradient: CAGradientLayer, cornerRadius: CGFloat) {

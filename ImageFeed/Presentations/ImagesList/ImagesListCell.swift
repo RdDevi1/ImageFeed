@@ -12,6 +12,8 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
+    private let cellImageGradient = CAGradientLayer()
+    
     @IBAction private func likeButtonClicked() {
         delegate?.imageListCellDidTapLike(self)
     }
@@ -29,17 +31,24 @@ final class ImagesListCell: UITableViewCell {
         let imageUrl = photos[indexPath.row].thumbImageURL
         let url = URL(string: imageUrl)
         
-        cell.cellImage.kf.indicatorType = .activity
+        likeButton.isHidden = true
+        dateLabel.isHidden = true
+        showGradient(for: cell)
+        
+        cell.cellImage.kf.indicatorType = .none
         cell.cellImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholderImageList")
-        )
+            placeholder: UIImage(named: "placeholderImageList")) { _ in
+                self.removeGradient(gradient: self.cellImageGradient)
+                self.likeButton.isHidden = false
+                self.dateLabel.isHidden = false
+            }
+        
        
-        if photos[indexPath.row].createdAt != nil {
-            let createdAt = photos[indexPath.row].createdAt
-            cell.dateLabel.text = createdAt?.dateTimeString
+        if let createdAt = photos[indexPath.row].createdAt {
+            dateLabel.text = createdAt.dateTimeString
         } else {
-            cell.dateLabel.text = ""
+            dateLabel.text = ""
         }
         
         setIsLiked(isLiked: photos[indexPath.row].isLiked)
@@ -49,5 +58,13 @@ final class ImagesListCell: UITableViewCell {
     func setIsLiked(isLiked: Bool) {
         let likeImage = isLiked ? UIImage(named: "Like_on") : UIImage(named: "Like_off")
         likeButton.setImage(likeImage, for: .normal)
+    }
+    
+    private func showGradient(for cell: ImagesListCell) {
+        guard let image = UIImage(named: "placeholderImageList") else { return }
+        cellImageGradient.frame.size.height = image.size.height
+        cellImageGradient.frame.size.width = cell.frame.width
+        cell.addGradient(gradient: cellImageGradient, cornerRadius: 16)
+        cell.cellImage.layer.addSublayer(cellImageGradient)
     }
 }
