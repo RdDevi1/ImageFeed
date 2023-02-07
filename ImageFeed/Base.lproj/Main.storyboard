@@ -79,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlS-PQ-Lt5">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="87" width="390" height="681"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -95,23 +95,23 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4px-BR-SRI">
-                                <rect key="frame" x="16" y="130" width="358" height="4"/>
+                                <rect key="frame" x="0.0" y="142" width="390" height="4"/>
                                 <color key="progressTintColor" name="ypBlack"/>
                             </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hgv-rt-w2e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="top" id="AYS-9n-gj1"/>
-                            <constraint firstItem="2ni-9A-JXp" firstAttribute="top" secondItem="hgv-rt-w2e" secondAttribute="top" constant="59" id="Bpb-hx-k2R"/>
-                            <constraint firstItem="2ni-9A-JXp" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" constant="16" id="KNv-2V-jYL"/>
-                            <constraint firstItem="4px-BR-SRI" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leadingMargin" id="LXQ-z5-Jvo"/>
-                            <constraint firstAttribute="bottom" secondItem="IlS-PQ-Lt5" secondAttribute="bottom" id="N8m-lJ-e4d"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4px-BR-SRI" secondAttribute="trailing" id="awb-xH-eTg"/>
-                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2ni-9A-JXp" secondAttribute="trailing" symbolic="YES" id="mg5-VB-XHf"/>
-                            <constraint firstItem="4px-BR-SRI" firstAttribute="top" secondItem="2ni-9A-JXp" secondAttribute="bottom" id="mio-zn-BaF"/>
-                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leading" id="n1v-0m-M8B"/>
-                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" secondItem="IlS-PQ-Lt5" secondAttribute="trailing" id="z9L-JW-7Ot"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" id="2XM-qa-B2K"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="trailing" secondItem="hgv-rt-w2e" secondAttribute="trailing" id="KyR-tK-Q56"/>
+                            <constraint firstAttribute="bottom" secondItem="IlS-PQ-Lt5" secondAttribute="bottom" constant="76" id="MUV-UH-rwO"/>
+                            <constraint firstItem="2ni-9A-JXp" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leading" constant="16" id="Omd-0Q-3Qe"/>
+                            <constraint firstItem="4px-BR-SRI" firstAttribute="top" secondItem="2ni-9A-JXp" secondAttribute="bottom" constant="12" id="htK-ss-p2u"/>
+                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" secondItem="4px-BR-SRI" secondAttribute="trailing" id="mBn-AR-wWF"/>
+                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2ni-9A-JXp" secondAttribute="trailing" symbolic="YES" id="mCz-xB-CSj"/>
+                            <constraint firstItem="2ni-9A-JXp" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="topMargin" constant="59" id="oPj-sj-9mB"/>
+                            <constraint firstItem="4px-BR-SRI" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" id="taL-8M-KPK"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="top" constant="87" id="ueM-94-9xq"/>
                         </constraints>
                     </view>
                     <connections>

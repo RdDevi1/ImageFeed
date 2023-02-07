@@ -118,11 +118,11 @@
 		C4245226293E806B00CD9A77 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C494404C298C01CE00E9D886 /* Date+extension.swift */,
 				C41B3561296F01FA00866B24 /* UIBlockingProgressHUD.swift */,
 				C4245227293E80A000CD9A77 /* UIColor .swift */,
-				C494EA2D2976CCF2009FC93A /* URLSession+extension.swift */,
 				C48D1E5A297A762F00D5C049 /* UIViewController+UIView+extension.swift */,
-				C494404C298C01CE00E9D886 /* Date+extension.swift */,
+				C494EA2D2976CCF2009FC93A /* URLSession+extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -140,9 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				C489A53D295DCE79005A6D02 /* OAuthTokenResponse.swift */,
+				C415C4612983EA480017CF6E /* Photo.swift */,
 				C41B3565297041E600866B24 /* ProfileResult.swift */,
 				C41B35692975754500866B24 /* UserResult.swift */,
-				C415C4612983EA480017CF6E /* Photo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,11 +150,11 @@
 		C489A53F295DD33B005A6D02 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C489A540295DD366005A6D02 /* OAuth2Service.swift */,
-				C41B356329703E1500866B24 /* ProfileService.swift */,
-				C41B3567297475FD00866B24 /* ProfileImageService.swift */,
 				C415C45F2983EA050017CF6E /* ImagesListService.swift */,
+				C489A540295DD366005A6D02 /* OAuth2Service.swift */,
 				C489A54229633060005A6D02 /* OAuth2TokenStorage.swift */,
+				C41B3567297475FD00866B24 /* ProfileImageService.swift */,
+				C41B356329703E1500866B24 /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -163,10 +163,10 @@
 			isa = PBXGroup;
 			children = (
 				C4BBE5402930E7FB00777BC5 /* ImagesList */,
+				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
+				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
 				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
 				C48D1E58297975B000D5C049 /* TabBarViewController.swift */,
-				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
-				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
 			);
 			path = Presentations;
 			sourceTree = "<group>";
@@ -192,18 +192,18 @@
 		C49F41202926637400CC2B85 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				C49F41212926637400CC2B85 /* AppDelegate.swift */,
-				C49F41232926637400CC2B85 /* SceneDelegate.swift */,
-				C457AB61295099770071E8D5 /* Constants.swift */,
-				C494404E298D17AA00E9D886 /* Presentations */,
 				C457AB652952EC4B0071E8D5 /* Auth */,
-				C489A53F295DD33B005A6D02 /* Services */,
-				C489A53C295DCE31005A6D02 /* Models */,
 				C4245226293E806B00CD9A77 /* Helpers */,
+				C489A53C295DCE31005A6D02 /* Models */,
+				C494404E298D17AA00E9D886 /* Presentations */,
+				C489A53F295DD33B005A6D02 /* Services */,
 				C49F41272926637500CC2B85 /* Main.storyboard */,
+				C49F412F2926637600CC2B85 /* Info.plist */,
+				C49F41212926637400CC2B85 /* AppDelegate.swift */,
+				C457AB61295099770071E8D5 /* Constants.swift */,
+				C49F41232926637400CC2B85 /* SceneDelegate.swift */,
 				C49F412A2926637600CC2B85 /* Assets.xcassets */,
 				C49F412C2926637600CC2B85 /* LaunchScreen.storyboard */,
-				C49F412F2926637600CC2B85 /* Info.plist */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";

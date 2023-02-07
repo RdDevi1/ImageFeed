@@ -12,14 +12,14 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
+    // MARK: - Properties
+    weak var delegate: ImagesListCellDelegate?
+    static let reuseIdentifier = "ImagesListCell"
     private let cellImageGradient = CAGradientLayer()
     
     @IBAction private func likeButtonClicked() {
         delegate?.imageListCellDidTapLike(self)
     }
-
-    weak var delegate: ImagesListCellDelegate?
-    static let reuseIdentifier = "ImagesListCell"
     
     
     override func prepareForReuse() {
@@ -35,16 +35,16 @@ final class ImagesListCell: UITableViewCell {
         dateLabel.isHidden = true
         showGradient(for: cell)
         
-        cell.cellImage.kf.indicatorType = .none
-        cell.cellImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: "placeholderImageList")) { _ in
-                self.removeGradient(gradient: self.cellImageGradient)
-                self.likeButton.isHidden = false
-                self.dateLabel.isHidden = false
-            }
+        // cell.frame.size.height = cell.cellImage.frame.height
         
-       
+        //cell.cellImage.kf.indicatorType = .none
+        cell.cellImage.kf.setImage(with: url,
+                                   placeholder: UIImage(named: "placeholderImageList")) { _ in
+            self.removeGradient(gradient: self.cellImageGradient)
+            self.likeButton.isHidden = false
+            self.dateLabel.isHidden = false
+        }
+        
         if let createdAt = photos[indexPath.row].createdAt {
             dateLabel.text = createdAt.dateTimeString
         } else {
@@ -56,13 +56,13 @@ final class ImagesListCell: UITableViewCell {
     
     
     func setIsLiked(isLiked: Bool) {
-        let likeImage = isLiked ? UIImage(named: "Like_on") : UIImage(named: "Like_off")
+        let likeImage = isLiked ? UIImage(named: "like_on") : UIImage(named: "like_off")
         likeButton.setImage(likeImage, for: .normal)
     }
     
     private func showGradient(for cell: ImagesListCell) {
-        guard let image = UIImage(named: "placeholderImageList") else { return }
-        cellImageGradient.frame.size.height = image.size.height
+        //guard let image = UIImage(named: "placeholderImageList") else { return }
+        cellImageGradient.frame.size.height = cell.cellImage.frame.height
         cellImageGradient.frame.size.width = cell.frame.width
         cell.addGradient(gradient: cellImageGradient, cornerRadius: 16)
         cell.cellImage.layer.addSublayer(cellImageGradient)

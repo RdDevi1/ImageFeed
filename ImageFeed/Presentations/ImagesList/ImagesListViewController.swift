@@ -23,6 +23,8 @@ final class ImagesListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+    
+        
         imagesListServiceObserver = NotificationCenter.default.addObserver(
             forName: ImagesListService.didChangeNotification,
             object: nil,
@@ -88,6 +90,8 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else { return UITableViewCell() }
         imageListCell.delegate = self
         imageListCell.configCell(for: imageListCell, from: photos, with: indexPath)
+   //     tableView.rowHeight = cell.frame.height
+       
         tableView.reloadRows(at: [indexPath], with: .none)
         
         return imageListCell

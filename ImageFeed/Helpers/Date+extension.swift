@@ -10,6 +10,8 @@ import Foundation
 
 extension Date {
     
+    private static let iso8601Formatter = ISO8601DateFormatter()
+    
     static private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -21,8 +23,6 @@ extension Date {
     var dateTimeString: String { Date.dateFormatter.string(from: self) }
     
     static func convertStringToDate(_ string: String) -> Date? {
-        let dateFormatter = ISO8601DateFormatter()
-        let date = dateFormatter.date(from: string)
-        return date
+        return iso8601Formatter.date(from: string)
     }
 }
