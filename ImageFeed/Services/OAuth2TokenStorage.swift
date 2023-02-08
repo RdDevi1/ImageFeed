@@ -19,8 +19,9 @@ final class OAuth2TokenStorage {
         }
         set {
             if let bearerToken = newValue {
-                keychainWrapper.removeObject(forKey: Keys.bearerToken.rawValue)
                 keychainWrapper.set(bearerToken, forKey: Keys.bearerToken.rawValue)
+            } else {
+                keychainWrapper.removeObject(forKey: Keys.bearerToken.rawValue)
             }
         }
     }
