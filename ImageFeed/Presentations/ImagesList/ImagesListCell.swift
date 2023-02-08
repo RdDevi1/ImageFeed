@@ -35,9 +35,6 @@ final class ImagesListCell: UITableViewCell {
         dateLabel.isHidden = true
         showGradient(for: cell)
         
-        // cell.frame.size.height = cell.cellImage.frame.height
-        
-        //cell.cellImage.kf.indicatorType = .none
         cell.cellImage.kf.setImage(with: url,
                                    placeholder: UIImage(named: "placeholderImageList")) { _ in
             self.removeGradient(gradient: self.cellImageGradient)
@@ -61,8 +58,7 @@ final class ImagesListCell: UITableViewCell {
     }
     
     private func showGradient(for cell: ImagesListCell) {
-        //guard let image = UIImage(named: "placeholderImageList") else { return }
-        cellImageGradient.frame.size.height = cell.cellImage.frame.height
+        cellImageGradient.frame.size.height = cell.frame.height
         cellImageGradient.frame.size.width = cell.frame.width
         cell.addGradient(gradient: cellImageGradient, cornerRadius: 16)
         cell.cellImage.layer.addSublayer(cellImageGradient)
