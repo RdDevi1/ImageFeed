@@ -83,6 +83,7 @@ final class ProfileViewController: UIViewController {
         updateAvatar()
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
