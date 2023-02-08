@@ -33,10 +33,10 @@ final class WebViewViewController: UIViewController {
         
         var urlComponents = URLComponents(string: unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: ConstantsUnsplash.accessKey),
-            URLQueryItem(name: "redirect_uri", value: ConstantsUnsplash.redirectURI),
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: ConstantsUnsplash.accessScope)
+            URLQueryItem(name: "scope", value: Constants.accessScope)
         ]
         let url = urlComponents.url!
         
@@ -46,7 +46,7 @@ final class WebViewViewController: UIViewController {
         updateProgress()
     }
     
-
+    
     
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
@@ -55,6 +55,18 @@ final class WebViewViewController: UIViewController {
     
     @IBAction private func didTapBackButton(_ sender: UIButton) {
         delegate?.webViewViewControllerDidCancel(self)
+    }
+    
+    static func clean() {
+        // Очищаем все куки из хранилища.
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        // Запрашиваем все данные из локального хранилища.
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            // Массив полученных записей удаляем из хранилища.
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }
 

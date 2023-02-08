@@ -1,6 +1,7 @@
 import UIKit
 import ProgressHUD
 
+fileprivate let showWebViewSegueIdentifier = "ShowWebView"
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
@@ -8,21 +9,22 @@ protocol AuthViewControllerDelegate: AnyObject {
 
 final class AuthViewController: UIViewController {
     
-    weak var delegate: AuthViewControllerDelegate?
-    private enum Constants {
-        static let showWebViewSegueIdentifier = "ShowWebView"
-    }
-    
-    private let oAuth2Service = OAuth2Service()
-    private var oAuth2TokenStorage = OAuth2TokenStorage()
-    
+    // MARK: - Outlets
     @IBOutlet private weak var authLogoImage: UIImageView!
     @IBOutlet private weak var logInButton: UIButton!
     
+    
+    // MARK: - Properties
+    weak var delegate: AuthViewControllerDelegate?
+    private let oAuth2Service = OAuth2Service()
+    private var oAuth2TokenStorage = OAuth2TokenStorage.shared
+    
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier ==  Constants.showWebViewSegueIdentifier {
+        if segue.identifier == showWebViewSegueIdentifier {
             guard let webViewViewController = segue.destination as? WebViewViewController
-            else  { fatalError("Failed to prepare for \(Constants.showWebViewSegueIdentifier)") }
+            else  { fatalError("Failed to prepare for \(showWebViewSegueIdentifier)") }
             webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -31,6 +33,7 @@ final class AuthViewController: UIViewController {
     
 }
 
+//MARK: - Extensions
 extension AuthViewController: WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {

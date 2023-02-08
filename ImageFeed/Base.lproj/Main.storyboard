@@ -79,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlS-PQ-Lt5">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="87" width="390" height="681"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -95,23 +95,23 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4px-BR-SRI">
-                                <rect key="frame" x="16" y="130" width="358" height="4"/>
+                                <rect key="frame" x="0.0" y="142" width="390" height="4"/>
                                 <color key="progressTintColor" name="ypBlack"/>
                             </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hgv-rt-w2e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="top" id="AYS-9n-gj1"/>
-                            <constraint firstItem="2ni-9A-JXp" firstAttribute="top" secondItem="hgv-rt-w2e" secondAttribute="top" constant="59" id="Bpb-hx-k2R"/>
-                            <constraint firstItem="2ni-9A-JXp" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" constant="16" id="KNv-2V-jYL"/>
-                            <constraint firstItem="4px-BR-SRI" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leadingMargin" id="LXQ-z5-Jvo"/>
-                            <constraint firstAttribute="bottom" secondItem="IlS-PQ-Lt5" secondAttribute="bottom" id="N8m-lJ-e4d"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4px-BR-SRI" secondAttribute="trailing" id="awb-xH-eTg"/>
-                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2ni-9A-JXp" secondAttribute="trailing" symbolic="YES" id="mg5-VB-XHf"/>
-                            <constraint firstItem="4px-BR-SRI" firstAttribute="top" secondItem="2ni-9A-JXp" secondAttribute="bottom" id="mio-zn-BaF"/>
-                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leading" id="n1v-0m-M8B"/>
-                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" secondItem="IlS-PQ-Lt5" secondAttribute="trailing" id="z9L-JW-7Ot"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" id="2XM-qa-B2K"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="trailing" secondItem="hgv-rt-w2e" secondAttribute="trailing" id="KyR-tK-Q56"/>
+                            <constraint firstAttribute="bottom" secondItem="IlS-PQ-Lt5" secondAttribute="bottom" constant="76" id="MUV-UH-rwO"/>
+                            <constraint firstItem="2ni-9A-JXp" firstAttribute="leading" secondItem="g54-Si-Ube" secondAttribute="leading" constant="16" id="Omd-0Q-3Qe"/>
+                            <constraint firstItem="4px-BR-SRI" firstAttribute="top" secondItem="2ni-9A-JXp" secondAttribute="bottom" constant="12" id="htK-ss-p2u"/>
+                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" secondItem="4px-BR-SRI" secondAttribute="trailing" id="mBn-AR-wWF"/>
+                            <constraint firstItem="hgv-rt-w2e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2ni-9A-JXp" secondAttribute="trailing" symbolic="YES" id="mCz-xB-CSj"/>
+                            <constraint firstItem="2ni-9A-JXp" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="topMargin" constant="59" id="oPj-sj-9mB"/>
+                            <constraint firstItem="4px-BR-SRI" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" id="taL-8M-KPK"/>
+                            <constraint firstItem="IlS-PQ-Lt5" firstAttribute="top" secondItem="g54-Si-Ube" secondAttribute="top" constant="87" id="ueM-94-9xq"/>
                         </constraints>
                     </view>
                     <connections>
@@ -154,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" rowHeight="221" id="tsS-vP-g1Y" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" rowHeight="221" id="tsS-vP-g1Y" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="390" height="221"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tsS-vP-g1Y" id="EQd-vr-dX0">
@@ -162,7 +162,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="1ox-ss-PVL" userLabel="Cell Image">
-                                                    <rect key="frame" x="20" y="11" width="350" height="199"/>
+                                                    <rect key="frame" x="16" y="4" width="358" height="213"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -172,29 +172,32 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 сентября 2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI1-wp-bMD" userLabel="Date label">
-                                                    <rect key="frame" x="28" y="186" width="106" height="16"/>
+                                                    <rect key="frame" x="24" y="193" width="106" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tdk-cq-fxQ" userLabel="Like button">
-                                                    <rect key="frame" x="328" y="11" width="42" height="42"/>
+                                                    <rect key="frame" x="332" y="4" width="42" height="42"/>
                                                     <color key="tintColor" red="0.82599914969999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="Like_on"/>
+                                                    <state key="normal" image="like_on"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="tsS-vP-g1Y" eventType="touchUpInside" id="g9h-KG-Mdl"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1ox-ss-PVL" secondAttribute="bottom" id="87U-6Y-WHQ"/>
+                                                <constraint firstItem="Tdk-cq-fxQ" firstAttribute="top" secondItem="1ox-ss-PVL" secondAttribute="top" id="IIH-4e-aWl"/>
+                                                <constraint firstAttribute="bottom" secondItem="1ox-ss-PVL" secondAttribute="bottom" constant="4" id="M8r-NV-Ieu"/>
+                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="leading" secondItem="EQd-vr-dX0" secondAttribute="leading" constant="16" id="PSr-Lm-fA8"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hI1-wp-bMD" secondAttribute="trailing" constant="20" symbolic="YES" id="SOQ-M7-Yw3"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Tdk-cq-fxQ" secondAttribute="trailing" id="b0z-MI-lQh"/>
-                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="top" secondItem="EQd-vr-dX0" secondAttribute="topMargin" id="dnO-JG-m5c"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="hI1-wp-bMD" secondAttribute="bottom" constant="8" id="gyB-1T-fIv"/>
-                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="leading" secondItem="EQd-vr-dX0" secondAttribute="leadingMargin" id="iv5-qu-gE1"/>
-                                                <constraint firstItem="Tdk-cq-fxQ" firstAttribute="top" secondItem="EQd-vr-dX0" secondAttribute="topMargin" id="oFV-eV-sjD"/>
-                                                <constraint firstItem="hI1-wp-bMD" firstAttribute="leading" secondItem="EQd-vr-dX0" secondAttribute="leadingMargin" constant="8" id="sGG-Y9-JZo" userLabel="Date label.leading = leadingMargin - 8"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1ox-ss-PVL" secondAttribute="trailing" id="vZH-2x-CbG"/>
+                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="top" secondItem="EQd-vr-dX0" secondAttribute="top" constant="4" id="cUo-M0-ymV"/>
+                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="bottom" secondItem="hI1-wp-bMD" secondAttribute="bottom" constant="8" id="dEB-DQ-QzM"/>
+                                                <constraint firstAttribute="trailing" secondItem="1ox-ss-PVL" secondAttribute="trailing" constant="16" id="dx7-Ah-ZhJ"/>
+                                                <constraint firstItem="hI1-wp-bMD" firstAttribute="leading" secondItem="1ox-ss-PVL" secondAttribute="leading" constant="8" id="hRo-WL-3cT"/>
+                                                <constraint firstItem="1ox-ss-PVL" firstAttribute="trailing" secondItem="Tdk-cq-fxQ" secondAttribute="trailing" id="w5x-ng-NKl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -263,7 +266,7 @@
                                     <constraint firstAttribute="width" constant="48" id="c4c-hn-5bz"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Backward"/>
+                                <state key="normal" image="backward"/>
                                 <connections>
                                     <action selector="didTapBackButton:" destination="lgK-F7-69N" eventType="touchUpInside" id="YF0-eN-skY"/>
                                 </connections>
@@ -271,7 +274,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y92-R6-aQY" userLabel="Share Button">
                                 <rect key="frame" x="170" y="709" width="50" height="50"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Sharing"/>
+                                <state key="normal" image="sharing"/>
                                 <connections>
                                     <action selector="didTapShareAction:" destination="lgK-F7-69N" eventType="touchUpInside" id="jOu-Jf-K9k"/>
                                     <action selector="didTapShareButton:" destination="lgK-F7-69N" eventType="touchUpOutside" id="m3r-qg-KQ7"/>
@@ -323,11 +326,11 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Backward" width="24" height="24"/>
-        <image name="Like_on" width="42" height="42"/>
-        <image name="Sharing" width="50" height="50"/>
         <image name="auth_screen_logo" width="60" height="60"/>
+        <image name="backward" width="24" height="24"/>
+        <image name="like_on" width="42" height="42"/>
         <image name="nav_back_button" width="24" height="24"/>
+        <image name="sharing" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

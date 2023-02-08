@@ -11,7 +11,7 @@ final class SplashViewController: UIViewController {
     
     //MARK: - Properties
     private let oAuth2Service = OAuth2Service()
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var isAlreadyShownAuthScreen: Bool = false
@@ -105,7 +105,9 @@ extension SplashViewController {
                 self.fetchProfile(token: token)
             case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
-                self.showAlert(vc: self)
+                self.showAlert(title: "Что-то пошло не так(", message: "Не удалось войти в систему") { [weak self] _ in
+                    self?.checkAuth()
+                }
                 print(error)
             }
         }
@@ -121,28 +123,13 @@ extension SplashViewController {
                     self.switchToTabBarController()
                 }
             case .failure(let error):
-                self.showAlert(vc: self)
+                self.showAlert(title: "Что-то пошло не так(", message: "Не удалось войти в систему") { [weak self] _ in
+                    self?.checkAuth()
+                }
                 print(error)
             }
             UIBlockingProgressHUD.dismiss()
-        }
-    }
-}
-
-// MARK: - Alert
-extension SplashViewController {
-    func showAlert(vc: UIViewController) {
-        let alert = UIAlertController(
-            title: "Что-то пошло не так(",
-            message: "Не удалось войти в систему",
-            preferredStyle: .alert
-        )
-        let alertAction = UIAlertAction(
-            title: "Ok",
-            style: .cancel
-        )
-        alert.addAction(alertAction)
-        vc.present(alert, animated: true)
+        }                                      
     }
 }
 

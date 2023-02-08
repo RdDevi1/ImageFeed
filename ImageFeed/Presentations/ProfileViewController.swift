@@ -4,12 +4,18 @@ import Kingfisher
 final class ProfileViewController: UIViewController {
     
     private var profileService = ProfileService.shared
-    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
+    private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    
+    private let avatarImageViewGradient = CAGradientLayer()
+    private let profileNameLabelGradient = CAGradientLayer()
+    private let loginLabelGradient = CAGradientLayer()
+    private let descriptionLabelGradient = CAGradientLayer()
     
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Avatar")
+        imageView.image = UIImage(systemName: "person.circle.fill")
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 35
         return imageView
@@ -40,11 +46,12 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var logoutButton: UIButton = {
-        let button = UIButton.systemButton(with: UIImage(named: "logout_button")!,
-                                           target: ProfileViewController.self,
-                                           action: nil)
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
+        button.setImage(UIImage(named: "logout_button"), for: .normal)
         return button
     }()
+   
     
     private lazy var vStackView: UIStackView = {
         let vStack = UIStackView()
@@ -61,7 +68,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         setProfileViewLayout()
         updateProfileDetails(profile: profileService.profile)
         
@@ -73,10 +80,23 @@ final class ProfileViewController: UIViewController {
             guard let self = self else { return }
             self.updateAvatar()
         }
-        
         updateAvatar()
     }
-
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if profileService.profile == nil {
+            profileNameLabel.addGradient(gradient: profileNameLabelGradient, cornerRadius: 9)
+            loginLabel.addGradient(gradient: loginLabelGradient, cornerRadius: 9)
+            descriptionLabel.addGradient(gradient: descriptionLabelGradient, cornerRadius: 9)
+        }
+        if profileImageService.avatarURL == nil {
+            avatarImageView.addGradient(gradient: avatarImageViewGradient, cornerRadius: 35)
+        }
+    }
+    
     
     // MARK: - Private methods
     private func updateAvatar() {
@@ -85,21 +105,14 @@ final class ProfileViewController: UIViewController {
             let url = URL(string: profileImageURL)
         else { return }
         
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-        
-        avatarImageView.kf.setImage(with: url,
-                                    placeholder: UIImage(systemName: "person.crop.circle.fill"),
-                                    options: [
-                                        .processor(processor),
-                                        .transition(.fade(1))
-                                    ]
-        )
+        avatarImageView.removeGradient(gradient: avatarImageViewGradient)
+        avatarImageView.kf.setImage(with: url)
     }
     
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 76),
+            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 70),
             avatarImageView.heightAnchor.constraint(equalToConstant: 70),
@@ -110,7 +123,7 @@ final class ProfileViewController: UIViewController {
             profileNameLabel.topAnchor.constraint(equalTo: vStackView.topAnchor),
             profileNameLabel.leadingAnchor.constraint(equalTo: vStackView.leadingAnchor),
             
-            logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
@@ -125,6 +138,26 @@ final class ProfileViewController: UIViewController {
         activateConstraints()
     }
     
+    
+    private func logout() {
+        oAuth2TokenStorage.clean()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
+    }
+    
+    @objc
+    private func didTapLogoutButton() {
+        showAlert(title: "Пока, пока",
+                  message: "Уверены что хотите выйти?",
+                  firstAction: "Да",
+                  secondAction: "Нет"
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.logout()
+        } secondAlertAction: { _ in }
+    }
 }
 
 
@@ -134,6 +167,9 @@ extension ProfileViewController {
     
     private func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
+        profileNameLabel.removeGradient(gradient: profileNameLabelGradient)
+        loginLabel.removeGradient(gradient: loginLabelGradient)
+        descriptionLabel.removeGradient(gradient: descriptionLabelGradient)
         profileNameLabel.text = profile.name
         loginLabel.text = profile.loginName
         descriptionLabel.text = profile.bio

@@ -8,7 +8,6 @@ private enum ProfileError: Error {
 final class ProfileService {
   
     // MARK: - Properties
-    fileprivate let profileInfoURLString = "https://api.unsplash.com/me"
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastToken: String?
@@ -52,7 +51,7 @@ final class ProfileService {
     
     
     private func makeRequest(token: String) -> URLRequest {
-        guard let url = URL(string: profileInfoURLString) else { fatalError("Failed to create URL") }
+        guard let url = URL(string: Constants.profileURL) else { fatalError("Failed to create URL") }
             var request = URLRequest(url: url)
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             return request
