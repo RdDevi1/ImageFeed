@@ -19,12 +19,14 @@ final class AuthViewController: UIViewController {
     private let oAuth2Service = OAuth2Service()
     private var oAuth2TokenStorage = OAuth2TokenStorage.shared
     
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showWebViewSegueIdentifier {
             guard let webViewViewController = segue.destination as? WebViewViewController
             else  { fatalError("Failed to prepare for \(showWebViewSegueIdentifier)") }
+            let webViewPresenter = WebViewPresenter()
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
             webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
