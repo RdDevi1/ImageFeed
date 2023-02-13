@@ -23,7 +23,7 @@ final class SplashViewController: UIViewController {
     }()
     
     
-    //MARK: - LifeCicle
+    //MARK: - Life Cicle
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -35,7 +35,6 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
         super.viewDidLoad()
         
         webView.navigationDelegate = self
-        
         presenter?.viewDidLoad()
     }
     

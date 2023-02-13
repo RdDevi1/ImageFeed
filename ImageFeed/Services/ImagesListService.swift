@@ -123,7 +123,7 @@ final class ImagesListService {
     
     private func makeRequestForLike(for photoId: String, isLike: Bool) -> URLRequest {
         guard let token = oAuth2TokenStorage.bearerToken else { fatalError("No token provided") }
-        guard var urlComponents = URLComponents(string: Constants.defaultBaseURL) else { fatalError() }
+        guard var urlComponents = URLComponents(url: Constants.defaultBaseURL, resolvingAgainstBaseURL: true) else { fatalError() }
         urlComponents.path = "/photos/\(photoId)/like"
         let url = urlComponents.url!
         var request = URLRequest(url: url)
