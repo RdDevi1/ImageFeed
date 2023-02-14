@@ -49,10 +49,8 @@ final class SplashViewController: UIViewController {
     
     
     private func checkAuth() {
-        if let token = oAuth2TokenStorage.bearerToken {
-            UIBlockingProgressHUD.show()
-            fetchProfile(token: token)
-            
+        if oAuth2TokenStorage.bearerToken != nil {
+            switchToTabBarController()
         } else {
             
             let storyboard = UIStoryboard(name: "Main", bundle: .main)
@@ -102,7 +100,10 @@ extension SplashViewController {
             switch result {
             case .success(let token):
                 self.oAuth2TokenStorage.bearerToken = token
-                self.fetchProfile(token: token)
+                DispatchQueue.main.async {
+                    self.switchToTabBarController()
+                }
+                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
                 UIBlockingProgressHUD.dismiss()
                 self.showAlert(title: "Что-то пошло не так(", message: "Не удалось войти в систему") { [weak self] _ in
@@ -111,25 +112,6 @@ extension SplashViewController {
                 print(error)
             }
         }
-    }
-    
-    private func fetchProfile(token: String) {
-        profileService.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
-                DispatchQueue.main.async {
-                    self.switchToTabBarController()
-                }
-            case .failure(let error):
-                self.showAlert(title: "Что-то пошло не так(", message: "Не удалось войти в систему") { [weak self] _ in
-                    self?.checkAuth()
-                }
-                print(error)
-            }
-            UIBlockingProgressHUD.dismiss()
-        }                                      
     }
 }
 

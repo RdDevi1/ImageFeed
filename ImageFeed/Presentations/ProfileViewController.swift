@@ -1,7 +1,14 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+protocol ProfileViewControllerProtocol {
+    
+}
+
+
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+    
+    private var presenter: ProfilePresenterProtocol?
     
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
@@ -23,7 +30,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var profileNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "name"
+        label.text = "     "
         label.font = UIFont.boldSystemFont(ofSize: 23)
         label.textColor = .white
         return label
@@ -31,7 +38,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
-        label.text = "login"
+        label.text = "     "
         label.font = UIFont(name: "System", size: 13)
         label.textColor = .ypGray
         return label
@@ -39,7 +46,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "bio"
+        label.text = "     "
         label.font = UIFont(name: "System", size: 13)
         label.textColor = .white
         return label
@@ -70,7 +77,8 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setProfileViewLayout()
-        updateProfileDetails(profile: profileService.profile)
+        guard let token = oAuth2TokenStorage.bearerToken else { return }
+        fetchProfile(token: token)
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
@@ -88,11 +96,19 @@ final class ProfileViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if profileService.profile == nil {
+            profileNameLabelGradient.frame.size.width = 225
+            profileNameLabelGradient.frame.size.height = 23
+            loginLabelGradient.frame.size.width = 225
+            loginLabelGradient.frame.size.height = 23
+            descriptionLabelGradient.frame.size.width = 225
+            descriptionLabelGradient.frame.size.height = 23
             profileNameLabel.addGradient(gradient: profileNameLabelGradient, cornerRadius: 9)
             loginLabel.addGradient(gradient: loginLabelGradient, cornerRadius: 9)
             descriptionLabel.addGradient(gradient: descriptionLabelGradient, cornerRadius: 9)
         }
         if profileImageService.avatarURL == nil {
+            avatarImageViewGradient.frame.size.width = 70
+            avatarImageViewGradient.frame.size.height = 70
             avatarImageView.addGradient(gradient: avatarImageViewGradient, cornerRadius: 35)
         }
     }
@@ -158,6 +174,12 @@ final class ProfileViewController: UIViewController {
             self.logout()
         } secondAlertAction: { _ in }
     }
+    
+    
+//    func configure(_ presenter: ProfilePresenterProtocol) {
+//        self.presenter = presenter
+//        presenter.view = self
+//    }
 }
 
 
@@ -175,4 +197,23 @@ extension ProfileViewController {
         descriptionLabel.text = profile.bio
     }
     
+}
+
+extension ProfileViewController {
+    private func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                self.updateProfileDetails(profile: profile)
+                self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
+                
+            case .failure(let error):
+                print(error)
+                self.showAlert(title: "Что-то пошло не так(", message: "Не удалось загрузить информацию") { [weak self] _ in
+                    self?.fetchProfile(token: token)
+                }
+            }
+        }
+    }
 }

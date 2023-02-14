@@ -14,7 +14,6 @@ protocol AuthHelperProtocol {
 }
 
 
-
 class AuthHelper: AuthHelperProtocol {
     
     let configuration: AuthConfiguration
