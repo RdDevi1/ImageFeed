@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C415C4602983EA050017CF6E /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415C45F2983EA050017CF6E /* ImagesListService.swift */; };
 		C415C4622983EA480017CF6E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415C4612983EA480017CF6E /* Photo.swift */; };
-		C415C46A2983EDD50017CF6E /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415C4692983EDD50017CF6E /* ImageFeedTests.swift */; };
+		C415C46A2983EDD50017CF6E /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415C4692983EDD50017CF6E /* WebViewTests.swift */; };
 		C41B3560296DE1D000866B24 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C41B355F296DE1D000866B24 /* ProgressHUD */; };
 		C41B3562296F01FA00866B24 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41B3561296F01FA00866B24 /* UIBlockingProgressHUD.swift */; };
 		C41B356429703E1500866B24 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41B356329703E1500866B24 /* ProfileService.swift */; };
@@ -57,7 +57,7 @@
 		C415C45F2983EA050017CF6E /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 		C415C4612983EA480017CF6E /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C415C4672983EDD50017CF6E /* ImageFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C415C4692983EDD50017CF6E /* ImageFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedTests.swift; sourceTree = "<group>"; };
+		C415C4692983EDD50017CF6E /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		C41B3561296F01FA00866B24 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		C41B356329703E1500866B24 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		C41B3565297041E600866B24 /* ProfileResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResult.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		C415C4682983EDD50017CF6E /* ImageFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				C415C4692983EDD50017CF6E /* ImageFeedTests.swift */,
+				C415C4692983EDD50017CF6E /* WebViewTests.swift */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C415C46A2983EDD50017CF6E /* ImageFeedTests.swift in Sources */,
+				C415C46A2983EDD50017CF6E /* WebViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

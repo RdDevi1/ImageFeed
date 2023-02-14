@@ -25,11 +25,11 @@ class AuthHelper: AuthHelperProtocol {
     
     //MARK: - Methods
     func authRequest() -> URLRequest {
-        let url = authUrl()
+        let url = authURL()
         return URLRequest(url: url)
     }
     
-    func authUrl() -> URL {
+    func authURL() -> URL {
         var urlComponents = URLComponents(string: configuration.authURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: configuration.accessKey),
