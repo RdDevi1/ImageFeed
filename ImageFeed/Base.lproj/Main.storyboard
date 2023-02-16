@@ -25,9 +25,10 @@
                                     <constraint firstAttribute="width" constant="60" id="FkK-4t-zLP"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPR-za-EFC">
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Authenticate" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPR-za-EFC" userLabel="Authenticate">
                                 <rect key="frame" x="16" y="638" width="358" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="s4k-2O-2T6"/>
                                 </constraints>
@@ -85,6 +86,9 @@
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="UnsplashWebView"/>
+                                </userDefinedRuntimeAttributes>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ni-9A-JXp" userLabel="BackButton">
                                 <rect key="frame" x="16" y="106" width="78" height="24"/>
@@ -101,6 +105,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hgv-rt-w2e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView"/>
                         <constraints>
                             <constraint firstItem="IlS-PQ-Lt5" firstAttribute="leading" secondItem="hgv-rt-w2e" secondAttribute="leading" id="2XM-qa-B2K"/>
                             <constraint firstItem="IlS-PQ-Lt5" firstAttribute="trailing" secondItem="hgv-rt-w2e" secondAttribute="trailing" id="KyR-tK-Q56"/>
@@ -179,6 +184,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tdk-cq-fxQ" userLabel="Like button">
                                                     <rect key="frame" x="332" y="4" width="42" height="42"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="like button"/>
                                                     <color key="tintColor" red="0.82599914969999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="like_on"/>
@@ -261,6 +267,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fa-HH-Z5p" userLabel="Back Button">
                                 <rect key="frame" x="8" y="55" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="back button"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="5nL-fm-UQd"/>
                                     <constraint firstAttribute="width" constant="48" id="c4c-hn-5bz"/>

@@ -96,12 +96,12 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         super.viewDidAppear(animated)
         
         if profileService.profile == nil {
-            profileNameLabelGradient.frame.size.width = 225
+            profileNameLabelGradient.frame.size.width = 223
             profileNameLabelGradient.frame.size.height = 23
-            loginLabelGradient.frame.size.width = 225
-            loginLabelGradient.frame.size.height = 23
-            descriptionLabelGradient.frame.size.width = 225
-            descriptionLabelGradient.frame.size.height = 23
+            loginLabelGradient.frame.size.width = 89
+            loginLabelGradient.frame.size.height = 18
+            descriptionLabelGradient.frame.size.width = 67
+            descriptionLabelGradient.frame.size.height = 18
             profileNameLabel.addGradient(gradient: profileNameLabelGradient, cornerRadius: 9)
             loginLabel.addGradient(gradient: loginLabelGradient, cornerRadius: 9)
             descriptionLabel.addGradient(gradient: descriptionLabelGradient, cornerRadius: 9)
