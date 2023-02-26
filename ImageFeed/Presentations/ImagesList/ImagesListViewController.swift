@@ -1,9 +1,16 @@
 import UIKit
 
-final class ImagesListViewController: UIViewController {
+protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListPresenterProtocol { get set }
+    func updateTableViewAnimated()
+}
+
+
+
+final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     
     // MARK: - Outlets
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private enum Constants {
         static let showSingleImageSegueIdentifier = "ShowSingleImage"
@@ -11,30 +18,21 @@ final class ImagesListViewController: UIViewController {
     
     // MARK: - Properties
     
+    lazy var presenter: ImagesListPresenterProtocol = {
+           return ImagesListPresenter()
+       } ()
     private var photos: [Photo] = []
-    private var imagesListServiceObserver: NSObjectProtocol?
     private let imagesListService = ImagesListService.shared
     
    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         tableView.delegate = self
         tableView.dataSource = self
-        
-    
-        
-        imagesListServiceObserver = NotificationCenter.default.addObserver(
-            forName: ImagesListService.didChangeNotification,
-            object: nil,
-            queue: .main,
-            using: { [weak self] _ in
-                guard let self else { return }
-                self.updateTableViewAnimated()
-            }
-        )
-        imagesListService.fetchPhotosNextPage()
+        presenter.view = self
+        presenter.viewDidLoad()
     }
     
     
@@ -49,7 +47,7 @@ final class ImagesListViewController: UIViewController {
     }
     
     
-    private func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = imagesListService.photos.count
         photos = imagesListService.photos
@@ -58,7 +56,6 @@ final class ImagesListViewController: UIViewController {
                 let indexPaths = (oldCount..<newCount).map { i in
                     IndexPath(row: i, section: 0)
                 }
-                
                 tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
@@ -90,7 +87,6 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else { return UITableViewCell() }
         imageListCell.delegate = self
         imageListCell.configCell(for: imageListCell, from: photos, with: indexPath)
-   //     tableView.rowHeight = cell.frame.height
        
         tableView.reloadRows(at: [indexPath], with: .none)
         

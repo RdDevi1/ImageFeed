@@ -1,14 +1,19 @@
 import UIKit
 import Kingfisher
 
-protocol ProfileViewControllerProtocol {
-    
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfilePresenterProtocol? { get set }
+    func updateProfileDetails(profile: Profile?)
+    func showAlert(title: String,
+                   message: String,
+                   action: ((UIAlertAction) -> (Void))?
+    )
 }
 
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
-    private var presenter: ProfilePresenterProtocol?
+    var presenter: ProfilePresenterProtocol?
     
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
@@ -77,8 +82,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         setProfileViewLayout()
-        guard let token = oAuth2TokenStorage.bearerToken else { return }
-        fetchProfile(token: token)
+        presenter?.viewDidLoad()
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
@@ -155,31 +159,17 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     
-    private func logout() {
-        oAuth2TokenStorage.clean()
-        tabBarController?.dismiss(animated: true)
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
-        window.rootViewController = SplashViewController()
-        window.makeKeyAndVisible()
-    }
-    
     @objc
     private func didTapLogoutButton() {
-        showAlert(title: "Пока, пока",
-                  message: "Уверены что хотите выйти?",
-                  firstAction: "Да",
-                  secondAction: "Нет"
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.logout()
-        } secondAlertAction: { _ in }
+        guard let alert = presenter?.logoutAlert() else { return }
+        present(alert, animated: true)
     }
     
     
-//    func configure(_ presenter: ProfilePresenterProtocol) {
-//        self.presenter = presenter
-//        presenter.view = self
-//    }
+    func configure(_ presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
+        presenter.view = self
+    }
 }
 
 
@@ -187,7 +177,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
 
 extension ProfileViewController {
     
-    private func updateProfileDetails(profile: Profile?) {
+     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
         profileNameLabel.removeGradient(gradient: profileNameLabelGradient)
         loginLabel.removeGradient(gradient: loginLabelGradient)
@@ -197,23 +187,4 @@ extension ProfileViewController {
         descriptionLabel.text = profile.bio
     }
     
-}
-
-extension ProfileViewController {
-    private func fetchProfile(token: String) {
-        profileService.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let profile):
-                self.updateProfileDetails(profile: profile)
-                self.profileImageService.fetchProfileImageURL(username: profile.username) { _ in }
-                
-            case .failure(let error):
-                print(error)
-                self.showAlert(title: "Что-то пошло не так(", message: "Не удалось загрузить информацию") { [weak self] _ in
-                    self?.fetchProfile(token: token)
-                }
-            }
-        }
-    }
 }

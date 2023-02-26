@@ -215,6 +215,10 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="KHq-tu-2Na"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3Bb-bY-7Bx"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
