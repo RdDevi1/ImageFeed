@@ -216,8 +216,8 @@
                                 </prototypes>
                                 <sections/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="KHq-tu-2Na"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3Bb-bY-7Bx"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="zJ6-gd-tPK"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="TwR-mF-TaY"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -277,7 +277,7 @@
                                     <constraint firstAttribute="width" constant="48" id="c4c-hn-5bz"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="backward"/>
+                                <state key="normal" image="Backward"/>
                                 <connections>
                                     <action selector="didTapBackButton:" destination="lgK-F7-69N" eventType="touchUpInside" id="YF0-eN-skY"/>
                                 </connections>
@@ -337,8 +337,8 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
+        <image name="Backward" width="24" height="24"/>
         <image name="auth_screen_logo" width="60" height="60"/>
-        <image name="backward" width="24" height="24"/>
         <image name="like_on" width="42" height="42"/>
         <image name="nav_back_button" width="24" height="24"/>
         <image name="sharing" width="50" height="50"/>

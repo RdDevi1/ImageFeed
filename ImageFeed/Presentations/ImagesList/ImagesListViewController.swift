@@ -10,7 +10,7 @@ protocol ImagesListViewControllerProtocol: AnyObject {
 final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     
     // MARK: - Outlets
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
     
     private enum Constants {
         static let showSingleImageSegueIdentifier = "ShowSingleImage"
@@ -29,8 +29,6 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tableView.delegate = self
-        tableView.dataSource = self
         presenter.view = self
         presenter.viewDidLoad()
     }
