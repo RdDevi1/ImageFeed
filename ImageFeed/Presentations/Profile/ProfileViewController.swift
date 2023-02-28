@@ -146,8 +146,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
             logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
-    }
-    
+    }    
     
     private func setProfileViewLayout() {
         assert(Thread.isMainThread)
@@ -158,18 +157,12 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         activateConstraints()
     }
     
-    
     @objc
     private func didTapLogoutButton() {
         guard let alert = presenter?.logoutAlert() else { return }
         present(alert, animated: true)
     }
     
-    
-    func configure(_ presenter: ProfilePresenterProtocol) {
-        self.presenter = presenter
-        presenter.view = self
-    }
 }
 
 

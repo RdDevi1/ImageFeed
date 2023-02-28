@@ -233,9 +233,8 @@
 		C494404E298D17AA00E9D886 /* Presentations */ = {
 			isa = PBXGroup;
 			children = (
+				C4C4151029ACD6D900BCF37B /* Profile */,
 				C4BBE5402930E7FB00777BC5 /* ImagesList */,
-				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
-				C49005B5299BB9C600EA7A8F /* ProfileViewPresenter.swift */,
 				C4270F2C293F64D30019E6E4 /* SingleImageViewController.swift */,
 				C4A7855F2965E31B0074CE84 /* SplashViewController.swift */,
 				C48D1E58297975B000D5C049 /* TabBarViewController.swift */,
@@ -292,6 +291,15 @@
 				C49005B3299BB9AB00EA7A8F /* ImagesListViewPresenter.swift */,
 			);
 			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		C4C4151029ACD6D900BCF37B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C42CA354293A1FF800F65453 /* ProfileViewController.swift */,
+				C49005B5299BB9C600EA7A8F /* ProfileViewPresenter.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

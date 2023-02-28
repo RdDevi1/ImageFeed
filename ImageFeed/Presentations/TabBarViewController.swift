@@ -9,9 +9,7 @@ final class TabBarController: UITabBarController {
         
         guard let imagesListViewController = storyboard.instantiateViewController(
             withIdentifier: "ImagesListViewController"
-        ) as? ImagesListViewController else {
-            return
-        }
+        ) as? ImagesListViewController else { return }
         
         let imagesListPresenter = ImagesListPresenter()
         imagesListViewController.presenter = imagesListPresenter

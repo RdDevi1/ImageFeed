@@ -1,11 +1,9 @@
 import UIKit
 
 protocol ImagesListViewControllerProtocol: AnyObject {
-    var presenter: ImagesListPresenterProtocol { get set }
+    var presenter: ImagesListPresenterProtocol? { get set }
     func updateTableViewAnimated()
 }
-
-
 
 final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     
@@ -18,9 +16,7 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     
     // MARK: - Properties
     
-    lazy var presenter: ImagesListPresenterProtocol = {
-           return ImagesListPresenter()
-       } ()
+    var presenter: ImagesListPresenterProtocol?
     private var photos: [Photo] = []
     private let imagesListService = ImagesListService.shared
     
@@ -29,8 +25,8 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        presenter.view = self
-        presenter.viewDidLoad()
+        presenter?.view = self
+        presenter?.viewDidLoad()
     }
     
     

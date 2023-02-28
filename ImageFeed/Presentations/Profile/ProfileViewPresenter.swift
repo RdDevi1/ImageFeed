@@ -46,7 +46,6 @@ final class ProfilePresenter {
         window.makeKeyAndVisible()
     }
     
-    
 }
 
 // MARK: - ProfilePresenterProtocol

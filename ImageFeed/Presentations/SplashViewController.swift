@@ -103,14 +103,13 @@ extension SplashViewController {
                 DispatchQueue.main.async {
                     self.switchToTabBarController()
                 }
-                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
-                UIBlockingProgressHUD.dismiss()
                 self.showAlert(title: "Что-то пошло не так(", message: "Не удалось войти в систему") { [weak self] _ in
                     self?.checkAuth()
                 }
                 print(error)
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
 }

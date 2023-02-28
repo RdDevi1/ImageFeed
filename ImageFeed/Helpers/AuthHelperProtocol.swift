@@ -9,23 +9,20 @@ import Foundation
 
 
 protocol AuthHelperProtocol {
-    func authRequest() -> URLRequest
+    var authRequest: URLRequest { get }
     func code(from url: URL) -> String?
 }
 
 
 class AuthHelper: AuthHelperProtocol {
+    var authRequest: URLRequest {
+        URLRequest(url: self.authURL())
+    }
     
     let configuration: AuthConfiguration
     
     init(configuration: AuthConfiguration = .standard) {
         self.configuration = configuration
-    }
-    
-    //MARK: - Methods
-    func authRequest() -> URLRequest {
-        let url = authURL()
-        return URLRequest(url: url)
     }
     
     func authURL() -> URL {
