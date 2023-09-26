@@ -33,7 +33,7 @@ final class ProfileImageService {
                 let profileImageURL = jsonData.profileImage.small
                 self.avatarURL = profileImageURL
                 completion(.success(profileImageURL))
-                print("SUCCESS--------------------> profileImageURL is here")
+                print("SUCCESS --> profileImageURL is here")
                 
                 NotificationCenter.default.post(
                     name: ProfileImageService.didChangeNotification,

@@ -7,21 +7,15 @@
 
 import UIKit
 
-protocol ProfilePresenterProtocol: AnyObject {
-    var view: ProfileViewControllerProtocol? { get set }
-    func viewDidLoad()
-    func logoutAlert() -> UIAlertController
-}
-
-
 final class ProfilePresenter {
     
+    // MARK: - Properties
     weak var view: ProfileViewControllerProtocol?
     private var profileService = ProfileService.shared
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     private let profileImageService = ProfileImageService.shared
     
-    
+    // MARK: - Methods
     private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
@@ -32,7 +26,8 @@ final class ProfilePresenter {
                 
             case .failure(let error):
                 print(error)
-                self.view?.showAlert(title: "Что-то пошло не так(", message: "Не удалось загрузить информацию") { [weak self] _ in
+                self.view?.showAlert(title: "Что-то пошло не так(",
+                                     message: "Не удалось загрузить информацию") { [weak self] _ in
                     self?.fetchProfile(token: token)
                 }
             }
@@ -49,7 +44,6 @@ final class ProfilePresenter {
 }
 
 // MARK: - ProfilePresenterProtocol
-
 extension ProfilePresenter: ProfilePresenterProtocol {
     
     func logoutAlert() -> UIAlertController {

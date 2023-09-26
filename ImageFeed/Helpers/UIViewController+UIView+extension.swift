@@ -1,14 +1,11 @@
 import UIKit
 
-
-
 extension UIViewController {
     
     func createViewOnVC(newView: UIView, setIn: UIView) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         setIn.addSubview(newView)
     }
-    
     
     func showAlert(title: String,
                    message: String,
@@ -41,7 +38,6 @@ extension UIViewController {
 }
 
 
-
 extension UIView {
     
     func addGradient(gradient: CAGradientLayer, cornerRadius: CGFloat) {
@@ -67,7 +63,6 @@ extension UIView {
         self.layer.addSublayer(gradient)
         
     }
-    
     
     func removeGradient(gradient: CAGradientLayer) {
         gradient.removeFromSuperlayer()

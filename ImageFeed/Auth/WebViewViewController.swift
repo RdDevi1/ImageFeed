@@ -1,35 +1,19 @@
 import UIKit
 import WebKit
 
-
-protocol WebViewViewControllerDelegate: AnyObject {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController)
-}
-
-
-protocol WebViewViewControllerProtocol: AnyObject {
-    var presenter: WebViewPresenterProtocol? { get set }
-    
-    func load(request: URLRequest)
-    func setProgressValue(_ newValue: Float)
-    func setProgressHidden(_ isHidden: Bool)
-}
-
-
-final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
+final class WebViewViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var backButton: UIButton!
     @IBOutlet private weak var progressView: UIProgressView!
     
-    // MARK: - Vars
+    // MARK: - Properties
     private var estimatedProgressObservation: NSKeyValueObservation?
     weak var delegate: WebViewViewControllerDelegate?
     var presenter: WebViewPresenterProtocol?
     
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,20 +48,7 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
         }
     }
     
-    // MARK: - WebViewViewControllerProtocol
-    func load(request: URLRequest) {
-        webView.load(request)
-    }
-    
-    func setProgressValue(_ newValue: Float) {
-        progressView.progress = newValue
-    }
-    
-    func setProgressHidden(_ isHidden: Bool) {
-        progressView.isHidden = isHidden
-    }
-    
-    
+    // MARK: - Actions
     @IBAction private func didTapBackButton(_ sender: UIButton) {
         delegate?.webViewViewControllerDidCancel(self)
     }
@@ -115,6 +86,22 @@ extension WebViewViewController: WKNavigationDelegate {
         }
         return nil
     }
+}
+
+extension WebViewViewController: WebViewViewControllerProtocol {
+    
+    func load(request: URLRequest) {
+        webView.load(request)
+    }
+    
+    func setProgressValue(_ newValue: Float) {
+        progressView.progress = newValue
+    }
+    
+    func setProgressHidden(_ isHidden: Bool) {
+        progressView.isHidden = isHidden
+    }
+    
 }
 
 

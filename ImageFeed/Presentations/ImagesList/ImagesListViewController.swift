@@ -1,9 +1,5 @@
 import UIKit
 
-protocol ImagesListViewControllerProtocol: AnyObject {
-    var presenter: ImagesListPresenterProtocol? { get set }
-    func updateTableViewAnimated()
-}
 
 final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     
@@ -15,12 +11,10 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     }
     
     // MARK: - Properties
-    
     var presenter: ImagesListPresenterProtocol?
     private var photos: [Photo] = []
     private let imagesListService = ImagesListService.shared
     
-   
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

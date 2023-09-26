@@ -1,18 +1,9 @@
 import UIKit
 import Kingfisher
 
-protocol ProfileViewControllerProtocol: AnyObject {
-    var presenter: ProfilePresenterProtocol? { get set }
-    func updateProfileDetails(profile: Profile?)
-    func showAlert(title: String,
-                   message: String,
-                   action: ((UIAlertAction) -> (Void))?
-    )
-}
-
-
-final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+final class ProfileViewController: UIViewController {
     
+    // MARK: - Properties
     var presenter: ProfilePresenterProtocol?
     
     private var profileService = ProfileService.shared
@@ -25,6 +16,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     private let loginLabelGradient = CAGradientLayer()
     private let descriptionLabelGradient = CAGradientLayer()
     
+    // MARK: - UI
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle.fill")
@@ -64,7 +56,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         return button
     }()
    
-    
     private lazy var vStackView: UIStackView = {
         let vStack = UIStackView()
         vStack.distribution = .equalSpacing
@@ -76,9 +67,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         return vStack
     }()
     
-    
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setProfileViewLayout()
@@ -94,7 +83,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         }
         updateAvatar()
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -167,8 +155,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
 
 
 // MARK: - Update profile
-
-extension ProfileViewController {
+extension ProfileViewController: ProfileViewControllerProtocol {
     
      func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }

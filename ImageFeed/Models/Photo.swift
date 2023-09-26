@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Photo {
     let id: String
     let size: CGSize

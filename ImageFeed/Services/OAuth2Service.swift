@@ -1,9 +1,5 @@
 import Foundation
 
-protocol OAuth2ServiceDelegate {
-    func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void )
-}
-
 private enum OAuth2Error: Error {
     case codeError, decodeError
 }
@@ -15,7 +11,7 @@ final class OAuth2Service: OAuth2ServiceDelegate {
     private var task: URLSessionTask?
     private var lastCode: String? // значения code, которое было передано в последнем созданном запросе
     
-    
+    // MARK: - Methods
     func fetchAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void ) {
         
         assert(Thread.isMainThread)  // Проверяем, что код выполняется из главного потока
@@ -31,7 +27,7 @@ final class OAuth2Service: OAuth2ServiceDelegate {
             case .success(let jsonData):
                 completion(.success(jsonData.accessToken))
                 self.task = nil
-                print("SUCCESS--------------------> token is here")
+                print("SUCCESS --> token is here")
             case .failure(let error):
                 completion(.failure(error))
             }

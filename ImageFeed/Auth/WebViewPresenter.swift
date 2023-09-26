@@ -7,35 +7,28 @@
 
 import Foundation
 
-protocol WebViewPresenterProtocol {
-    var view: WebViewViewControllerProtocol? { get set }
-    func viewDidLoad()
-    func didUpdateProgressValue(_ newValue: Double)
-    func code(from url: URL) -> String?
-}
 
 final class WebViewPresenter: WebViewPresenterProtocol {
     
+    // MARK: - Properties
     weak var view: WebViewViewControllerProtocol?
     var authHelper: AuthHelperProtocol
     
+    //MARK: - Lifecycle
     init(authHelper: AuthHelperProtocol) {
         self.authHelper = authHelper
     }
- 
     
-    //MARK: - Methods
     func viewDidLoad() {
         let request = authHelper.authRequest
         view?.load(request: request)
         didUpdateProgressValue(0)
     }
     
-    
+    //MARK: - Methods
     func code(from url: URL) -> String? {
         authHelper.code(from: url)
     }
-    
     
     func didUpdateProgressValue(_ newValue: Double) {
         let newProgressValue = Float(newValue)

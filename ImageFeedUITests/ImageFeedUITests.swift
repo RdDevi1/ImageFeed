@@ -1,7 +1,5 @@
 import XCTest
 
-
-
 final class ImageFeedUITests: XCTestCase {
     
     private let app = XCUIApplication()

@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol ImagesListPresenterProtocol: AnyObject {
-    var view: ImagesListViewControllerProtocol? { get set }
-    func viewDidLoad()
-}
-
-
 final class ImagesListPresenter {
     weak var view: ImagesListViewControllerProtocol?
     private var imagesListServiceObserver: NSObjectProtocol?

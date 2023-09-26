@@ -92,7 +92,6 @@ extension SplashViewController {
 }
 
 //MARK: - Fetch
-
 extension SplashViewController {
     private func fetchOAuthToken(_ code: String) {
         oAuth2Service.fetchAuthToken(code: code) { [weak self] result in
@@ -113,7 +112,6 @@ extension SplashViewController {
         }
     }
 }
-
 
 // MARK: - Layout
 extension SplashViewController {

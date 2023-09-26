@@ -20,7 +20,7 @@ extension URLSession {
                     response.statusCode < 200 || response.statusCode > 299
                 {
                     completion(.failure(URLSessionError.codeError))
-                    print("ERROR ------------------------------------------> bad code responce: \(response.statusCode) for model: \(T.self)" )
+                    print("ERROR --> bad code responce: \(response.statusCode) for model: \(T.self)" )
                     return
                 }
                 
@@ -31,7 +31,7 @@ extension URLSession {
                     completion(.success(jsonData))
                 } catch {
                     completion(.failure(URLSessionError.decodeError))
-                    print("ERROR ----------------------------------------> data decode for \(T.self) decodeError")
+                    print("ERROR --> data decode for \(T.self) decodeError")
                 }
             }
         }

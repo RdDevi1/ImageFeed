@@ -11,13 +11,11 @@ final class ImagesListService {
     
     // MARK: - Properties
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
-    
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private let oAuth2TokenStorage = OAuth2TokenStorage.shared
-    
     
     //MARK: - Singleton
     static let shared = ImagesListService()
@@ -59,7 +57,7 @@ final class ImagesListService {
                     object: self,
                     userInfo: ["Photos": self.photos]
                 )
-                print("SUCCESS--------------------> photoResult is here")
+                print("SUCCESS --> photoResult is here")
                 self.task = nil
                 self.lastLoadedPage = nextPage
                 
