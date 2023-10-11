@@ -60,7 +60,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         
         alert.addAction(cancelAction)
         alert.addAction(confirmAction)
-        
         return alert
     }
     

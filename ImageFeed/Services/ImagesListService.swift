@@ -74,7 +74,6 @@ final class ImagesListService {
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         assert(Thread.isMainThread)
         let request = makeRequestForLike(for: photoId, isLike: isLike)
-        
         let task = urlSession.objectTask(for: request) { (result: Result<LikeResult, Error>) in
             switch result {
             case .success:

@@ -16,7 +16,7 @@ final class ProfileViewController: UIViewController {
     private let loginLabelGradient = CAGradientLayer()
     private let descriptionLabelGradient = CAGradientLayer()
     
-    // MARK: - UI
+    // MARK: - Layout elements
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle.fill")
